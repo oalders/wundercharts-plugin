@@ -1,4 +1,5 @@
 .build
-/WunderCharts-Plugin*
 local
+*.swp
 .tidyall.d
+/WunderCharts-Plugin*
