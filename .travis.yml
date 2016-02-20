@@ -1,0 +1,13 @@
+sudo: false
+language: perl
+perl:
+  - "5.20"
+  - "5.18"
+script:
+  - "prove -lrv t"
+notifications:
+  email:
+    recipients:
+      - olaf@wundersolutions.com
+    on_success: always
+    on_failure: alway
