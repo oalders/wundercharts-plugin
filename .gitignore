@@ -1,0 +1,4 @@
+.build
+/WunderCharts-Plugin*
+local
+.tidyall.d
