@@ -4,6 +4,8 @@ package WunderCharts::Plugin;
 
 1;
 
+# ABSTRACT: WunderCharts Plugins for 3rd Party Web Services
+
 =pod
 
 =head1 DESCRIPTION
