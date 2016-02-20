@@ -8,6 +8,7 @@ select = app.psgi
 
 [SortLines::Naturally]
 select = .gitignore
+select = MANIFEST.SKIP
 
 [JSON]
 select = t/**/*json
