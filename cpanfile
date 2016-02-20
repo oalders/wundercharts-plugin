@@ -14,7 +14,7 @@ requires "Types::URI" => "0";
 requires "URI" => "0";
 requires "URI::FromHash" => "0";
 requires "WWW::Spotify" => "0";
-requires "perl" => "5.006";
+requires "perl" => "v5.10.0";
 requires "strict" => "0";
 requires "warnings" => "0";
 
@@ -30,10 +30,9 @@ on 'test' => sub {
   requires "Test::More" => "0";
   requires "Test::Most" => "0";
   requires "Test::RequiresInternet" => "0";
-  requires "WunderCharts::Model" => "0";
-  requires "WunderCharts::Test::Fixtures" => "0";
+  requires "feature" => "0";
   requires "lib" => "0";
-  requires "perl" => "5.006";
+  requires "perl" => "v5.10.0";
 };
 
 on 'configure' => sub {
