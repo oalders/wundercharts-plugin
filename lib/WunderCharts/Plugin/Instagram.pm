@@ -10,7 +10,7 @@ use URI::FromHash qw(uri);
 use WunderCharts::Plugin::Instagram::User ();
 
 has _client => (
-    is  => 'lazy',
+    is => 'lazy',
     isa => InstanceOf ['API::Instagram'],
 );
 
@@ -21,7 +21,7 @@ with(
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
 
-sub _build_url_for_service {'https://instagram.com'}
+sub _build_url_for_service { 'https://instagram.com' }
 
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {
@@ -36,13 +36,13 @@ sub get_user_by_id {
     );
 
     return WunderCharts::Plugin::Instagram::User->new(
-        user => $self->_get_url( $uri ) );
+        user => $self->_get_url($uri) );
 }
 
 sub get_user_by_nick {
     my $self = shift;
     my $nick = shift;
-    $nick = $self->maybe_extract_id( $nick );
+    $nick = $self->maybe_extract_id($nick);
 
     my $uri = uri(
         scheme => 'https',
@@ -51,9 +51,9 @@ sub get_user_by_nick {
         query  => { access_token => $self->_access_token, q => $nick, }
     );
 
-    my @users = @{ $self->_get_url( $uri ) };
+    my @users = @{ $self->_get_url($uri) };
 
-    foreach my $user ( @users ) {
+    foreach my $user (@users) {
         if ( $user->{username} eq $nick ) {
             return WunderCharts::Plugin::Instagram::User->new(
                 user => $user );
@@ -71,7 +71,7 @@ sub url_for_user {
 sub _get_url {
     my $self = shift;
     my $uri  = shift;
-    my $res  = $self->_user_agent->get( $uri );
+    my $res  = $self->_user_agent->get($uri);
 
     unless ( $res->code == 200 ) {
         die sprintf 'Could not fetch %s (status code %s)', $uri, $res->code;
@@ -80,7 +80,7 @@ sub _get_url {
     my $json = decode_json( $res->decoded_content );
 
     unless ( $json->{meta}->{code} == 200 ) {
-        die np( $json );
+        die np($json);
     }
     return $json->{data};
 }

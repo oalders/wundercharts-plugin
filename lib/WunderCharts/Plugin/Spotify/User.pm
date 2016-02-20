@@ -68,7 +68,7 @@ sub maybe_extract_id {
     # looks like an URL?
     return $identifier unless $identifier =~ m{/};
 
-    my $uri      = URI->new( $identifier );
+    my $uri      = URI->new($identifier);
     my @segments = $uri->path_segments;
 
     return $segments[2] if $uri->host =~ m{\A(open|play).spotify.com\z};

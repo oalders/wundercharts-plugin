@@ -11,7 +11,7 @@ has _access_token_secret => (
     init_arg => 'access_token_secret',
 );
 
-with( 'WunderCharts::Plugin::Role::RequiresOAuth2' );
+with('WunderCharts::Plugin::Role::RequiresOAuth2');
 
 1;
 

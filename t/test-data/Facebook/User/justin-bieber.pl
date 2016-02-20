@@ -1,4 +1,5 @@
-{   about =>
+{
+    about =>
         'Help change the world. New Single #WhatDoYouMean http://smarturl.it/iWDYM',
     booking_agent => 'Creative Arts Agency mcoffice@caa.com ',
     can_post      => 1,

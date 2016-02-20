@@ -15,7 +15,8 @@ my $user = user_object_for_service( 'Facebook', 'justin-bieber' );
 
 is_deeply(
     $user->trackable_data,
-    {   checkins            => 16_324,
+    {
+        checkins            => 16_324,
         likes               => 72_926_638,
         talking_about_count => 1_312_378,
         were_here_count     => 0,

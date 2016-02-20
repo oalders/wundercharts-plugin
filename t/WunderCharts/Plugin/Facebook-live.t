@@ -12,6 +12,6 @@ use Test::RequiresInternet (
 use WunderCharts::Plugin::Facebook;
 
 # live tests go here
-ok( 1 );
+ok(1);
 
 done_testing();

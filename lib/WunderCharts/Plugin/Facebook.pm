@@ -31,18 +31,18 @@ sub _build__client {
     );
 }
 
-sub _build_url_for_service {'https://facebook.com'}
+sub _build_url_for_service { 'https://facebook.com' }
 
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {
-    return shift->get_user_by_nick( @_ );
+    return shift->get_user_by_nick(@_);
 }
 
 sub get_user_by_nick {
     my $self = shift;
     my $id   = shift;
 
-    my $info = $self->_client->fetch( $self->maybe_extract_id( $id ) );
+    my $info = $self->_client->fetch( $self->maybe_extract_id($id) );
 
     return WunderCharts::Plugin::Facebook::User->new( user => $info );
 }

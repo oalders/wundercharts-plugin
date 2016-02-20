@@ -8,7 +8,7 @@ use Types::Standard qw( InstanceOf );
 use WunderCharts::Plugin::Twitter::User;
 
 has _client => (
-    is  => 'lazy',
+    is => 'lazy',
     isa => InstanceOf ['Net::Twitter'],
 );
 
@@ -33,7 +33,7 @@ sub _build__client {
     );
 }
 
-sub _build_url_for_service {'https://twitter.com/'}
+sub _build_url_for_service { 'https://twitter.com/' }
 
 # Expects an id assigned by the API -- usually a number
 sub get_user {
@@ -49,8 +49,8 @@ sub get_user {
 sub get_user_by_nick {
     my $self = shift;
 
-    my $id   = $self->maybe_extract_id( shift );
-    my $info = $self->_client->show_user( $id );
+    my $id   = $self->maybe_extract_id(shift);
+    my $info = $self->_client->show_user($id);
 
     return WunderCharts::Plugin::Twitter::User->new( user => $info );
 }

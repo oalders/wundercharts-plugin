@@ -21,7 +21,7 @@ sub maybe_extract_id {
     # looks like an URL?
     return $identifier unless $identifier =~ m{/};
 
-    my $uri      = URI->new( $identifier );
+    my $uri      = URI->new($identifier);
     my @segments = $uri->path_segments;
 
     # https://open.spotify.com/user/oalders
