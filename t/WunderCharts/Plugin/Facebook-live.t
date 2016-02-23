@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More skip_all => 'credentials required';
+use Test::More;
 use Test::RequiresInternet (
     'graph.facebook.com' => 443,
     'www.facebook.com'   => 443,

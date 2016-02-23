@@ -56,9 +56,12 @@ sub plugin_for_service {
 sub user_object_for_service {
     my $service = shift;
     my $user    = shift;
-    my $user_data
-        = eval path( sprintf( 't/test-data/%s/User/%s.pl', $service, $user ) )
-        ->slurp;
+
+    my $file
+        = path( sprintf( 't/test-data/%s/User/%s.pl', $service, $user ) );
+    die "$file not found" unless $file->exists;
+
+    my $user_data = eval $file->slurp;
 
     my $class = plugin_class_for_service($service) . '::User';
     load($class);
