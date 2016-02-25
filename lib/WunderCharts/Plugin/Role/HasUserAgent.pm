@@ -17,7 +17,7 @@ has _user_agent => (
 sub _build_user_agent {
     my $self = shift;
 
-    my $ua = WWW::Mechanize->new( timeout => 10 );
+    my $ua = WWW::Mechanize->new( autocheck => 0, timeout => 10 );
     if ( $ENV{WC_UA_DEBUG} ) {
         debug_ua( $ua, $ENV{WC_UA_DEBUG} );
     }
