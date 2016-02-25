@@ -28,11 +28,12 @@ sub _build__client {
     my $self = shift;
 
     my $nt = Net::Twitter->new(
+        access_token        => $self->_access_token,
+        access_token_secret => $self->_access_token_secret,
         consumer_key        => $self->_consumer_key,
         consumer_secret     => $self->_consumer_secret,
         traits              => ['API::RESTv1_1'],
-        access_token        => $self->_access_token,
-        access_token_secret => $self->_access_token_secret,
+        useragent_class     => 'LWP::UserAgent',
     );
 
     if ( $ENV{WC_UA_DEBUG} ) {
@@ -42,6 +43,11 @@ sub _build__client {
 }
 
 sub _build_url_for_service { 'https://twitter.com/' }
+
+sub _user_agent {
+    my $self = shift;
+    return $self->_client->ua;
+}
 
 # Expects an id assigned by the API -- usually a number
 sub get_user {

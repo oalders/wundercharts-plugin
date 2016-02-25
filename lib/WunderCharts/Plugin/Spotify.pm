@@ -4,7 +4,6 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Cpanel::JSON::XS qw( decode_json );
-use Data::Printer;
 use WWW::Spotify ();
 use Types::Standard qw( InstanceOf );
 use URI                                 ();
