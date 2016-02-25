@@ -12,7 +12,7 @@ use Test::RequiresInternet (
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw( config_for_service plugin_for_service );
 
-my $config = config_for_service('Faebook');
+my $config = config_for_service('Facebook');
 
 SKIP: {
     skip 'No live config', 1 unless $config->{live};
