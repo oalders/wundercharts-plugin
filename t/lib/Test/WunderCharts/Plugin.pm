@@ -62,6 +62,7 @@ sub user_object_for_service {
     die "$file not found" unless $file->exists;
 
     my $user_data = eval $file->slurp;
+    die 'user data does not eval' unless $user_data;
 
     my $class = plugin_class_for_service($service) . '::User';
     load($class);
