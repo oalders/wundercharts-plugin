@@ -14,23 +14,31 @@ has _client => (
 
 with(
     'WunderCharts::Plugin::Role::HasIDFilter',
-    'WunderCharts::Plugin::Role::HasUserAgent',
     'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth',
 );
 
+# Using our own UA leads to JSON parsing errors in Net::Twitter.  Enabling
+# debug_ua() will similarly lead to JSON errors, so only turn it on with the
+# expectation that you'll see what's going on under the hood but that parsing
+# will fail.
+
 sub _build__client {
     my $self = shift;
 
-    return Net::Twitter->new(
+    my $nt = Net::Twitter->new(
         consumer_key        => $self->_consumer_key,
         consumer_secret     => $self->_consumer_secret,
         traits              => ['API::RESTv1_1'],
-        ua                  => $self->_user_agent,
         access_token        => $self->_access_token,
         access_token_secret => $self->_access_token_secret,
     );
+
+    if ( $ENV{WC_UA_DEBUG} ) {
+        debug_ua( $nt->ua, $ENV{WC_UA_DEBUG} );
+    }
+    return $nt;
 }
 
 sub _build_url_for_service { 'https://twitter.com/' }
