@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More;
 use Test::RequiresInternet (
-    'api.facebook.com' => 443,
+    'api.github.com' => 443,
 );
 
 use lib 't/lib';
