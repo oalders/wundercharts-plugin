@@ -3,7 +3,7 @@ package WunderCharts::Plugin::Role::HasUserAgent;
 use Moo::Role;
 
 use LWP::ConsoleLogger::Easy qw( debug_ua );
-use LWP::UserAgent;
+use WWW::Mechanize;
 use Types::Standard qw( InstanceOf );
 
 has _user_agent => (
@@ -17,7 +17,7 @@ has _user_agent => (
 sub _build_user_agent {
     my $self = shift;
 
-    my $ua = LWP::UserAgent->new( timeout => 10 );
+    my $ua = WWW::Mechanize->new( timeout => 10 );
     if ( $ENV{WC_UA_DEBUG} ) {
         debug_ua( $ua, $ENV{WC_UA_DEBUG} );
     }

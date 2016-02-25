@@ -1,8 +1,8 @@
 requires "Cpanel::JSON::XS" => "0";
+requires "Data::Dumper" => "0";
 requires "Data::Printer" => "0";
 requires "Facebook::Graph" => "0";
 requires "LWP::ConsoleLogger::Easy" => "0";
-requires "LWP::UserAgent" => "0";
 requires "Moo" => "0";
 requires "Moo::Role" => "0";
 requires "MooX::StrictConstructor" => "0";
@@ -13,6 +13,7 @@ requires "Types::Standard" => "0";
 requires "Types::URI" => "0";
 requires "URI" => "0";
 requires "URI::FromHash" => "0";
+requires "WWW::Mechanize" => "0";
 requires "WWW::Spotify" => "0";
 requires "perl" => "v5.10.0";
 requires "strict" => "0";
@@ -33,6 +34,10 @@ on 'test' => sub {
   requires "feature" => "0";
   requires "lib" => "0";
   requires "perl" => "v5.10.0";
+};
+
+on 'test' => sub {
+  recommends "Data::Printer" => "0.38";
 };
 
 on 'configure' => sub {
