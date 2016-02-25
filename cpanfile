@@ -1,5 +1,4 @@
 requires "Cpanel::JSON::XS" => "0";
-requires "Data::Dumper" => "0";
 requires "Data::Printer" => "0";
 requires "Facebook::Graph" => "0";
 requires "LWP::ConsoleLogger::Easy" => "0";
@@ -24,6 +23,7 @@ on 'build' => sub {
 };
 
 on 'test' => sub {
+  requires "Devel::Confess" => "0";
   requires "Module::Load" => "0";
   requires "Path::Tiny" => "0";
   requires "Sub::Exporter" => "0";
@@ -38,6 +38,7 @@ on 'test' => sub {
 
 on 'test' => sub {
   recommends "Data::Printer" => "0.38";
+  recommends "Devel::Confess" => "0.00800";
 };
 
 on 'configure' => sub {
