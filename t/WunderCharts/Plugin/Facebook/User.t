@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 
-use Path::Tiny;
 use Test::More;
 
 use lib 't/lib';

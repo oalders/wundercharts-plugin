@@ -9,9 +9,19 @@ use Test::RequiresInternet (
     'www.facebook.com'   => 443,
 );
 
-use WunderCharts::Plugin::Facebook;
+use lib 't/lib';
+use Test::WunderCharts::Plugin qw( config_for_service plugin_for_service );
 
-# live tests go here
-ok(1);
+my $config = config_for_service('Faebook');
+
+SKIP: {
+    skip 'No live config', 1 unless $config->{live};
+
+    my $plugin = plugin_for_service('Facebook');
+    {
+        my $user = $plugin->get_user_by_nick('JustinBieber');
+        ok( $user, 'got JustinBieber user' );
+    }
+}
 
 done_testing();
