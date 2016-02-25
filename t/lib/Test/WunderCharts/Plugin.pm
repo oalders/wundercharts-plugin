@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use feature qw( state );
 
+use Cpanel::JSON::XS qw( decode_json );
 use Module::Load qw( load );
 use Path::Tiny qw( path );
 use Sub::Exporter -setup => {
@@ -54,15 +55,21 @@ sub plugin_for_service {
 }
 
 sub user_object_for_service {
-    my $service = shift;
-    my $user    = shift;
+    my $service   = shift;
+    my $user_file = shift;
 
     my $file
-        = path( sprintf( 't/test-data/%s/User/%s.pl', $service, $user ) );
+        = path( sprintf( 't/test-data/%s/User/%s', $service, $user_file ) );
     die "$file not found" unless $file->exists;
 
-    my $user_data = eval $file->slurp;
-    die 'user data does not eval' unless $user_data;
+    my $user_data;
+    if ( $user_file =~ m{\.pl\z} ) {
+        $user_data = eval $file->slurp;
+        die 'user data does not eval' unless $user_data;
+    }
+    elsif ( $user_file =~ m{\.json} ) {
+        $user_data = decode_json( $file->slurp );
+    }
 
     my $class = plugin_class_for_service($service) . '::User';
     load($class);

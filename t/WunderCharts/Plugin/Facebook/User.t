@@ -8,7 +8,7 @@ use Test::More;
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw( user_object_for_service );
 
-my $user = user_object_for_service( 'Facebook', 'justin-bieber' );
+my $user = user_object_for_service( 'Facebook', 'justin-bieber.pl' );
 
 is_deeply(
     $user->trackable_data,
