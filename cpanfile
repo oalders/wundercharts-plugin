@@ -1,4 +1,9 @@
 requires "Cpanel::JSON::XS" => "0";
+requires "Data::Printer" => "0.38";
+requires "Data::Printer::Filter::DBIx::Class" => "0";
+requires "Data::Printer::Filter::JSON" => "0";
+requires "Data::Printer::Filter::URI" => "0";
+requires "Devel::Confess" => "0.00800";
 requires "Facebook::Graph" => "0";
 requires "LWP::ConsoleLogger::Easy" => "0";
 requires "Moo" => "0";
@@ -22,7 +27,7 @@ on 'build' => sub {
 };
 
 on 'test' => sub {
-  requires "Devel::Confess" => "0";
+  requires "Devel::Confess" => "0.00800";
   requires "Module::Load" => "0";
   requires "Path::Tiny" => "0";
   requires "Sub::Exporter" => "0";
@@ -33,14 +38,6 @@ on 'test' => sub {
   requires "feature" => "0";
   requires "lib" => "0";
   requires "perl" => "v5.10.0";
-};
-
-on 'test' => sub {
-  recommends "Data::Printer" => "0.38";
-  recommends "Data::Printer::Filter::DBIx::Class" => "0";
-  recommends "Data::Printer::Filter::JSON" => "0";
-  recommends "Data::Printer::Filter::URI" => "0";
-  recommends "Devel::Confess" => "0.00800";
 };
 
 on 'configure' => sub {
