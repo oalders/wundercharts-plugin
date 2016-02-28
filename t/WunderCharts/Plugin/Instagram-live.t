@@ -11,14 +11,13 @@ use Test::WunderCharts::Plugin qw( config_for_service plugin_for_service );
 my $config = config_for_service('Instagram');
 
 SKIP: {
-    skip 'No live config', 2 unless $config->{live};
+    skip 'No live config', 5 unless $config->{live};
 
     my $plugin = plugin_for_service('Instagram');
 
     {
         my $user = $plugin->get_user_by_nick('oalders');
         ok( $user, 'got oalders user' );
-        diag print $plugin->_user_agent->content;
 
         ok( ( $user->followers_count > 0 ), 'has followers' );
         ok( ( $user->following_count > 0 ), 'follows accounts' );
