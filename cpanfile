@@ -37,6 +37,9 @@ on 'test' => sub {
 
 on 'test' => sub {
   recommends "Data::Printer" => "0.38";
+  recommends "Data::Printer::Filter::DBIx::Class" => "0";
+  recommends "Data::Printer::Filter::JSON" => "0";
+  recommends "Data::Printer::Filter::URI" => "0";
   recommends "Devel::Confess" => "0.00800";
 };
 
