@@ -4,7 +4,7 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Types::Common::Numeric qw( PositiveOrZeroInt );
-use Types::Standard qw( ArrayRef HashRef Str);
+use Types::Standard qw( HashRef Str);
 
 has followers_count => (
     is      => 'ro',
