@@ -77,10 +77,6 @@ sub maybe_extract_id {
     # for an absolute URL the first segment is an empty string
     my $id = $segments[1];
 
-    # https://www.facebook.com/Morph-Productions-8144912092/timeline/
-    if ( $id =~ m{\-(\d*)\z} ) {
-        return $1;
-    }
     return $id;
 }
 
