@@ -52,10 +52,12 @@ sub get_user_by_nick {
 
     my @users = @{ $self->_get_url($uri) };
 
+    # User object returned via search URL does not contain the "counts" key,
+    # so we'll make a second API call to get that.
+    # See https://www.instagram.com/developer/endpoints/users/
     foreach my $user (@users) {
         if ( $user->{username} eq $nick ) {
-            return WunderCharts::Plugin::Instagram::User->new(
-                user => $user );
+            return $self->get_user_by_id( $user->{id} );
         }
     }
 }

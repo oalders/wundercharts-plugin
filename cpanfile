@@ -1,5 +1,4 @@
 requires "Cpanel::JSON::XS" => "0";
-requires "Data::Printer" => "0";
 requires "Facebook::Graph" => "0";
 requires "LWP::ConsoleLogger::Easy" => "0";
 requires "Moo" => "0";

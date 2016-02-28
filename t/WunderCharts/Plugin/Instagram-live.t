@@ -18,6 +18,15 @@ SKIP: {
     {
         my $user = $plugin->get_user_by_nick('oalders');
         ok( $user, 'got oalders user' );
+        diag print $plugin->_user_agent->content;
+
+        ok( ( $user->followers_count > 0 ), 'has followers' );
+        ok( ( $user->following_count > 0 ), 'follows accounts' );
+    }
+
+    {
+        my $user = $plugin->get_user_by_id('5894185');
+        ok( $user, 'got oalders user by id' );
     }
 
     like(

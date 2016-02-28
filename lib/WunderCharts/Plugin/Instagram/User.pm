@@ -10,14 +10,14 @@ has followers_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{followed_by} },
+    default => sub { shift->_user->{counts}->{followed_by} },
 );
 
 has following_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{follows} },
+    default => sub { shift->_user->{counts}->{follows} },
 );
 
 has id => (
@@ -38,7 +38,7 @@ has media_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{media} },
+    default => sub { shift->_user->{counts}->{media} },
 );
 
 has name => (
