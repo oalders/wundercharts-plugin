@@ -4,6 +4,7 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Cpanel::JSON::XS qw( decode_json );
+use Data::Printer;
 use WWW::Spotify ();
 use Types::Standard qw( InstanceOf );
 use URI                                 ();
@@ -44,7 +45,8 @@ sub get_user_by_nick {
     my $user_json = $self->_client->user( $self->maybe_extract_id($id) );
     my $user      = decode_json($user_json);
 
-    die 'user not retrieved: ' . np $user->{error} if exists $user->{error};
+    die 'user not retrieved: ' . np( $user->{error} )
+        if exists $user->{error};
 
     return WunderCharts::Plugin::Spotify::User->new( user => $user );
 }
