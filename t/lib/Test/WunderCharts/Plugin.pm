@@ -100,7 +100,7 @@ sub user_object_for_service {
     my $class = plugin_class_for_service($service) . '::User';
     load($class);
 
-    return $class->new( user => $user_data );
+    return $class->new( raw => $user_data );
 }
 
 sub plugin_class_for_service {

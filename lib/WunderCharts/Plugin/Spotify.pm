@@ -48,7 +48,7 @@ sub get_user_by_nick {
     die 'user not retrieved: ' . np( $user->{error} )
         if exists $user->{error};
 
-    return WunderCharts::Plugin::Spotify::User->new( user => $user );
+    return WunderCharts::Plugin::Spotify::User->new( raw => $user );
 }
 
 sub url_for_user {

@@ -44,7 +44,7 @@ sub get_user_by_nick {
 
     my $info = $self->_client->fetch( $self->maybe_extract_id($id) );
 
-    return WunderCharts::Plugin::Facebook::User->new( user => $info );
+    return WunderCharts::Plugin::Facebook::User->new( raw => $info );
 }
 
 1;

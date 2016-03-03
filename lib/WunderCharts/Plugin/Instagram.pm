@@ -35,7 +35,7 @@ sub get_user_by_id {
     );
 
     return WunderCharts::Plugin::Instagram::User->new(
-        user => $self->_get_url($uri) );
+        raw => $self->_get_url($uri) );
 }
 
 sub get_user_by_nick {

@@ -42,7 +42,7 @@ sub get_user_by_nick {
     return unless $response->success;
 
     return WunderCharts::Plugin::Github::User->new(
-        user => $response->content );
+        raw => $response->content );
 }
 
 1;

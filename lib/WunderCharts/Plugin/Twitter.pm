@@ -56,7 +56,7 @@ sub get_user {
 
     my $info = $self->_client->show_user( { user_id => $id } );
 
-    return WunderCharts::Plugin::Twitter::User->new( user => $info );
+    return WunderCharts::Plugin::Twitter::User->new( raw => $info );
 }
 
 # search for user via @nick
@@ -66,7 +66,7 @@ sub get_user_by_nick {
     my $id   = $self->maybe_extract_id(shift);
     my $info = $self->_client->show_user($id);
 
-    return WunderCharts::Plugin::Twitter::User->new( user => $info );
+    return WunderCharts::Plugin::Twitter::User->new( raw => $info );
 }
 
 1;

@@ -10,59 +10,53 @@ has followers_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{followers_count} },
+    default => sub { shift->_raw->{followers_count} },
 );
 
 has friends_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{friends_count} },
+    default => sub { shift->_raw->{friends_count} },
 );
 
 has id => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{id} },
+    default => sub { shift->_raw->{id} },
 );
 
 has listed_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{listed_count} },
+    default => sub { shift->_raw->{listed_count} },
 );
 
 has name => (
     is      => 'ro',
     isa     => Str,
     lazy    => 1,
-    default => sub { shift->_user->{name} },
+    default => sub { shift->_raw->{name} },
 );
 
 has login => (
     is      => 'ro',
     isa     => Str,
     lazy    => 1,
-    default => sub { shift->_user->{screen_name} },
+    default => sub { shift->_raw->{screen_name} },
 );
 
 has statuses_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_user->{statuses_count} },
+    default => sub { shift->_raw->{statuses_count} },
 );
 
-has _user => (
-    is       => 'ro',
-    isa      => HashRef,
-    init_arg => 'user',
-    required => 1,
-);
-
-with 'WunderCharts::Plugin::Role::HasTrackableData';
+with 'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasTrackableData';
 
 sub _build_trackables {
     [ 'followers_count', 'friends_count', 'listed_count', 'statuses_count', ];
