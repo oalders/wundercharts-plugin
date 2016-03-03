@@ -9,7 +9,8 @@ use Module::Load qw( load );
 use Path::Tiny qw( path );
 use Sub::Exporter -setup => {
     exports => [
-        'config_for_service', 'plugin_for_service', 'user_object_for_service'
+        'config_for_service', 'plugin_for_service', 'resource_for_service',
+        'user_object_for_service'
     ]
 };
 
@@ -52,6 +53,31 @@ sub plugin_for_service {
         ? ( access_token_secret => $config->{access_token_secret} )
         : (),
     );
+}
+
+sub resource_for_service {
+    my $service  = shift;
+    my $resource = shift;
+    my $filename = shift;
+
+    my $file
+        = path(
+        sprintf( 't/test-data/%s/%s/%s', $service, $resource, $filename ) );
+    die "$file not found" unless $file->exists;
+
+    my $data;
+    if ( $filename =~ m{\.pl\z} ) {
+        $data = eval $file->slurp;
+        die 'user data does not eval' unless $data;
+    }
+    elsif ( $filename =~ m{\.json} ) {
+        $data = decode_json( $file->slurp );
+    }
+
+    my $class = plugin_class_for_service($service) . "::$resource";
+    load($class);
+
+    return $class->new( raw => $data );
 }
 
 sub user_object_for_service {
