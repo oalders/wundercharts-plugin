@@ -4,4 +4,5 @@ cpanfile.snapshot
 local
 *.swp
 .tidyall.d
+.vagrant
 /WunderCharts-Plugin*
