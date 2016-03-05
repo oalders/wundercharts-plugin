@@ -5,13 +5,16 @@ use MooX::StrictConstructor;
 
 use Cpanel::JSON::XS qw( decode_json );
 use Data::Printer;
-use WWW::Spotify ();
+use List::AllUtils qw( any );
 use Types::Standard qw( InstanceOf );
-use URI                                 ();
-use WunderCharts::Plugin::Spotify::User ();
+use URI                                   ();
+use WunderCharts::Plugin::Spotify::Artist ();
+use WunderCharts::Plugin::Spotify::Track  ();
+use WunderCharts::Plugin::Spotify::User   ();
+use WWW::Spotify                          ();
 
 has _client => (
-    is => 'lazy',
+    is  => 'lazy',
     isa => InstanceOf ['WWW::Spotify'],
 );
 
@@ -31,24 +34,71 @@ sub _build__client {
     );
 }
 
-sub _build_url_for_service { 'https://spotify.com' }
+sub _build_url_for_service {'https://spotify.com'}
+
+=head2 get_resource
+
+Given a string, this method will try to determine which Spotify resource it
+belongs to, currently a user or a track.
+
+    spotify:artist:0OdUWJ0sBjDrqHygGUXeCF
+    spotify:track:0eGsygTp906u18L0Oimnem
+    spotify:user:oalders
+
+=cut
+
+sub _handle_response {
+    my $self     = shift;
+    my $resource = shift;
+    my $id       = shift;
+
+    my $raw = decode_json(
+        $self->_client->$resource( $self->maybe_extract_id( $id ) ) );
+
+    die "$resource $id not retrieved " . np( $raw->{error} )
+        if exists $raw->{error};
+    return $raw;
+}
+
+sub get_resource {
+    my $self = shift;
+    my $arg  = shift;
+
+    if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
+        my $resource = $1;
+        my $id = $2;
+        my $method = 'get_' . $resource . '_by_id';
+        return $self->$method( $id );
+    }
+}
 
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {
-    return shift->get_user_by_nick(@_);
+    return shift->get_user_by_nick( @_ );
+}
+
+sub get_artist_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return WunderCharts::Plugin::Spotify::Artist->new(
+        raw => $self->_handle_response( 'artist', $id ) );
+}
+
+sub get_track_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return WunderCharts::Plugin::Spotify::Track->new(
+        raw => $self->_handle_response( 'track', $id ) );
 }
 
 sub get_user_by_nick {
     my $self = shift;
     my $id   = shift;
 
-    my $user_json = $self->_client->user( $self->maybe_extract_id($id) );
-    my $user      = decode_json($user_json);
-
-    die 'user not retrieved: ' . np( $user->{error} )
-        if exists $user->{error};
-
-    return WunderCharts::Plugin::Spotify::User->new( raw => $user );
+    my $raw = $self->_handle_response( 'user', $id );
+    return WunderCharts::Plugin::Spotify::User->new( raw => $raw );
 }
 
 sub url_for_user {

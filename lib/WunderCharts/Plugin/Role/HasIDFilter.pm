@@ -3,18 +3,20 @@ package WunderCharts::Plugin::Role::HasIDFilter;
 use Moo::Role;
 
 sub maybe_extract_id {
-    my $self = shift;
-
+    my $self       = shift;
     my $identifier = shift;
 
-    # starts with @?
-    if ( substr( $identifier, 0, 1 ) eq '@' ) {
+    # If it's just some alphanumeric string, there's nothing to extract
+    return $identifier unless $identifier =~ m{[^0-9a-zA-Z]};
+
+        # starts with @?
+        if ( substr( $identifier, 0, 1 ) eq '@' ) {
         $identifier = substr( $identifier, 1 );
         return $identifier;
     }
 
     # spotify:user:oalders
-    if ( $identifier =~ m{spotify:user:(\w*)} ) {
+    if ( $identifier =~ m{spotify:(?:artist|track|user):(\w*)} ) {
         return $1;
     }
 
