@@ -23,9 +23,11 @@ foreach my $url (@urls) {
 }
 
 my %resources = (
-    'spotify:artist:one' => [ 'artist', 'one' ],
-    'spotify:track:two'  => [ 'track',  'two' ],
-    'spotify:user:three' => [ 'user',   'three' ],
+    'spotify:artist:one'                    => [ 'artist', 'one' ],
+    'spotify:track:two'                     => [ 'track',  'two' ],
+    'spotify:user:three'                    => [ 'user',   'three' ],
+    'https://open.spotify.com/user/oalders' => [ 'user',   'oalders' ],
+    'https://play.spotify.com/user/oalders' => [ 'user',   'oalders' ],
 );
 
 foreach my $uri ( keys %resources ) {

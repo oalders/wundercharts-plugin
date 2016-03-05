@@ -14,7 +14,7 @@ use WunderCharts::Plugin::Spotify::User   ();
 use WWW::Spotify                          ();
 
 has _client => (
-    is  => 'lazy',
+    is => 'lazy',
     isa => InstanceOf ['WWW::Spotify'],
 );
 
@@ -34,7 +34,7 @@ sub _build__client {
     );
 }
 
-sub _build_url_for_service {'https://spotify.com'}
+sub _build_url_for_service { 'https://spotify.com' }
 
 =head2 get_resource
 
@@ -53,7 +53,7 @@ sub _handle_response {
     my $id       = shift;
 
     my $raw = decode_json(
-        $self->_client->$resource( $self->maybe_extract_id( $id ) ) );
+        $self->_client->$resource( $self->maybe_extract_id($id) ) );
 
     die "$resource $id not retrieved " . np( $raw->{error} )
         if exists $raw->{error};
@@ -66,8 +66,17 @@ sub detect_resource {
 
     if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
         my $resource = $1;
-        my $id = $2;
-        return ( $resource, $id )
+        my $id       = $2;
+        return ( $resource, $id );
+    }
+
+    # https://open.spotify.com/user/oalders
+    # https://play.spotify.com/user/oalders
+
+    if ( $arg =~ m{\Ahttp} ) {
+        my $uri      = URI->new($arg);
+        my @segments = $uri->path_segments;
+        return ( $segments[1], $segments[2] );
     }
 }
 
@@ -75,15 +84,15 @@ sub get_resource {
     my $self = shift;
     my $arg  = shift;
 
-    my ( $resource, $id) = $self->detect_resource( $arg );
+    my ( $resource, $id ) = $self->detect_resource($arg);
 
     my $method = 'get_' . $resource . '_by_id';
-    return $self->$method( $id );
+    return $self->$method($id);
 }
 
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {
-    return shift->get_user_by_nick( @_ );
+    return shift->get_user_by_nick(@_);
 }
 
 sub get_artist_by_id {
