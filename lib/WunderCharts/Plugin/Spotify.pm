@@ -4,8 +4,6 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Cpanel::JSON::XS qw( decode_json );
-use Data::Printer;
-use List::AllUtils qw( any );
 use Types::Standard qw( InstanceOf );
 use URI                                   ();
 use WunderCharts::Plugin::Spotify::Artist ();
