@@ -9,15 +9,10 @@ sub maybe_extract_id {
     # If it's just some alphanumeric string, there's nothing to extract
     return $identifier unless $identifier =~ m{[^0-9a-zA-Z]};
 
-        # starts with @?
-        if ( substr( $identifier, 0, 1 ) eq '@' ) {
+    # starts with @?
+    if ( substr( $identifier, 0, 1 ) eq '@' ) {
         $identifier = substr( $identifier, 1 );
         return $identifier;
-    }
-
-    # spotify:user:oalders
-    if ( $identifier =~ m{spotify:(?:artist|track|user):(\w*)} ) {
-        return $1;
     }
 
     # looks like an URL?
@@ -25,13 +20,6 @@ sub maybe_extract_id {
 
     my $uri      = URI->new($identifier);
     my @segments = $uri->path_segments;
-
-    # https://open.spotify.com/user/oalders
-    # https://play.spotify.com/user/oalders
-    return $segments[2] if $uri->host =~ m{\A(open|play).spotify.com\z};
-
-    # https://api.spotify.com/v1/users/oalders
-    return $segments[3] if $uri->host eq 'api.spotify.com';
 
     # for an absolute URL the first segment is an empty string
     my $id = $segments[1];

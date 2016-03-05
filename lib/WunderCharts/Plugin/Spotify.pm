@@ -64,6 +64,12 @@ sub detect_resource {
     my $self = shift;
     my $arg  = shift;
 
+    if ( substr( $arg, 0, 1 ) eq '@' ) {
+        return ( 'user', substr( $arg, 1 ) );
+    }
+
+    return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
+
     if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
         return ( $1, $2 );
     }
@@ -76,6 +82,8 @@ sub detect_resource {
         my @segments = $uri->path_segments;
         return ( $segments[1], $segments[2] );
     }
+
+    die "$arg does not appear to be a valid Spotify resource.";
 }
 
 sub get_resource {
