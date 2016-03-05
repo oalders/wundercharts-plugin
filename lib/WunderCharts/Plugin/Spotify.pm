@@ -65,9 +65,7 @@ sub detect_resource {
     my $arg  = shift;
 
     if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
-        my $resource = $1;
-        my $id       = $2;
-        return ( $resource, $id );
+        return ( $1, $2 );
     }
 
     # https://open.spotify.com/user/oalders
