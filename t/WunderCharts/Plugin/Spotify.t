@@ -22,4 +22,14 @@ foreach my $url (@urls) {
     );
 }
 
+my %resources = (
+    'spotify:artist:one' => [ 'artist', 'one' ],
+    'spotify:track:two'  => [ 'track',  'two' ],
+    'spotify:user:three' => [ 'user',   'three' ],
+);
+
+foreach my $uri ( keys %resources ) {
+    is_deeply( [ $plugin->detect_resource($uri) ], $resources{$uri}, $uri );
+}
+
 done_testing();

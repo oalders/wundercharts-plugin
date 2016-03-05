@@ -60,16 +60,25 @@ sub _handle_response {
     return $raw;
 }
 
-sub get_resource {
+sub detect_resource {
     my $self = shift;
     my $arg  = shift;
 
     if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
         my $resource = $1;
         my $id = $2;
-        my $method = 'get_' . $resource . '_by_id';
-        return $self->$method( $id );
+        return ( $resource, $id )
     }
+}
+
+sub get_resource {
+    my $self = shift;
+    my $arg  = shift;
+
+    my ( $resource, $id) = $self->detect_resource( $arg );
+
+    my $method = 'get_' . $resource . '_by_id';
+    return $self->$method( $id );
 }
 
 # use the id 'me' to get info about the user who is connecting
