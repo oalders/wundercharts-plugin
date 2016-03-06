@@ -16,7 +16,7 @@ has _client => (
 with(
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasServiceURL',
-    'WunderCharts::Plugin::Role::HasUserAgent',
+    'WunderCharts::Plugin::Role::HasMechUserAgent',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
 
