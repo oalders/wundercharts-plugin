@@ -57,7 +57,7 @@ sub get_object {
 
     my $raw
         = $self->_client->query->find($id)
-        ->include_metadata->include_summary(1)
+        ->include_metadata
         ->select_fields( 'id', 'name', )->request( ua => $self->_user_agent )
         ->as_hashref;
 
