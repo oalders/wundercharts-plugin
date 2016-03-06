@@ -22,6 +22,12 @@ SKIP: {
         my $user = $plugin->get_user_by_nick('JustinBieber');
         ok( $user, 'got JustinBieber user' );
     }
+
+    my $photo_id = 10154452100783797;
+    my $photo    = $plugin->get_object($photo_id);
+
+    ok( $photo->comments_count, 'comments' );
+    ok( $photo->likes_count,    'likes' );
 }
 
 done_testing();

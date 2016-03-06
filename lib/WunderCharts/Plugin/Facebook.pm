@@ -3,10 +3,13 @@ package WunderCharts::Plugin::Facebook;
 use Moo;
 use MooX::StrictConstructor;
 
-use Facebook::Graph;
+use Facebook::Graph          ();
+use Facebook::Graph::Request ();
 use Types::Standard qw( InstanceOf );
-use URI ();
-use WunderCharts::Plugin::Facebook::User;
+use URI                                   ();
+use URI::QueryParam                       ();
+use WunderCharts::Plugin::Facebook::Photo ();
+use WunderCharts::Plugin::Facebook::User  ();
 
 has _client => (
     is      => 'lazy',
@@ -17,6 +20,7 @@ has _client => (
 with(
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasServiceURL',
+    'WunderCharts::Plugin::Role::HasLWPUserAgent',
     'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
@@ -45,6 +49,43 @@ sub get_user_by_nick {
     my $info = $self->_client->fetch( $self->maybe_extract_id($id) );
 
     return WunderCharts::Plugin::Facebook::User->new( raw => $info );
+}
+
+sub get_object {
+    my $self = shift;
+    my $id   = shift;
+
+    my $raw
+        = $self->_client->query->find($id)
+        ->include_metadata->include_summary(1)
+        ->select_fields( 'id', 'name', )->request( ua => $self->_user_agent )
+        ->as_hashref;
+
+    my $resource = $raw->{metadata}->{type};
+    my $class    = 'WunderCharts::Plugin::Facebook::' . ucfirst($resource);
+    my %args     = (
+        raw          => $raw,
+        raw_comments => $self->_get_metadata_summary(
+            $raw->{metadata}->{connections}->{comments}
+        ),
+        raw_likes => $self->_get_metadata_summary(
+            $raw->{metadata}->{connections}->{likes}
+        ),
+    );
+
+    return $class->new(%args);
+}
+
+sub _get_metadata_summary {
+    my $self = shift;
+    my $link = shift;
+
+    my $uri = URI->new($link);
+    $uri->query_param( summary => 1 );
+
+    my $raw = Facebook::Graph::Request->new( ua => $self->_user_agent )
+        ->get($uri)->as_hashref;
+    return $raw;
 }
 
 1;
