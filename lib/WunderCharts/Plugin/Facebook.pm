@@ -52,7 +52,7 @@ sub get_user_by_nick {
     return WunderCharts::Plugin::Facebook::User->new( raw => $info );
 }
 
-sub get_object {
+sub get_resource {
     my $self = shift;
     my $id   = shift;
 

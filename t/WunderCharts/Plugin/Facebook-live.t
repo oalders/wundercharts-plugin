@@ -25,13 +25,13 @@ SKIP: {
     }
 
     my $photo_id = 10154452100783797;
-    my $photo    = $plugin->get_object($photo_id);
+    my $photo    = $plugin->get_resource($photo_id);
 
     ok( $photo->comments_count, 'comments' );
     ok( $photo->likes_count,    'likes' );
 
     like(
-        exception { $plugin->get_object('foo') },
+        exception { $plugin->get_resource('foo') },
         qr{Cannot fetch data for foo},
         'exception on object not found'
     );
