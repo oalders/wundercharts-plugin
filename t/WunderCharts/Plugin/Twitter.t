@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 
-use Test::Fatal;
 use Test::Most;
 
 use lib 't/lib';

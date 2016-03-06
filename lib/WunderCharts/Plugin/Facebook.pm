@@ -5,6 +5,7 @@ use MooX::StrictConstructor;
 
 use Facebook::Graph          ();
 use Facebook::Graph::Request ();
+use Try::Tiny qw( catch try );
 use Types::Standard qw( InstanceOf );
 use URI                                   ();
 use URI::QueryParam                       ();
@@ -55,22 +56,24 @@ sub get_object {
     my $self = shift;
     my $id   = shift;
 
-    my $raw
-        = $self->_client->query->find($id)
-        ->include_metadata
-        ->select_fields( 'id', 'name', )->request( ua => $self->_user_agent )
-        ->as_hashref;
+    my $raw;
+
+    try {
+        $raw
+            = $self->_client->query->find($id)
+            ->include_metadata->select_fields( 'id', 'name', )
+            ->request( ua => $self->_user_agent )->as_hashref;
+    }
+    catch {
+        die "Cannot fetch data for $id";
+    };
 
     my $resource = $raw->{metadata}->{type};
     my $class    = 'WunderCharts::Plugin::Facebook::' . ucfirst($resource);
     my %args     = (
         raw          => $raw,
-        raw_comments => $self->_get_metadata_summary(
-            $raw->{metadata}->{connections}->{comments}
-        ),
-        raw_likes => $self->_get_metadata_summary(
-            $raw->{metadata}->{connections}->{likes}
-        ),
+        raw_comments => $self->_get_metadata_summary( $raw, 'comments' ),
+        raw_likes    => $self->_get_metadata_summary( $raw, 'likes' ),
     );
 
     return $class->new(%args);
@@ -78,14 +81,23 @@ sub get_object {
 
 sub _get_metadata_summary {
     my $self = shift;
-    my $link = shift;
+    my $raw  = shift;
+    my $type = shift;
 
-    my $uri = URI->new($link);
+    my $link = $raw->{metadata}->{connections}->{$type};
+    my $uri  = URI->new($link);
     $uri->query_param( summary => 1 );
 
-    my $raw = Facebook::Graph::Request->new( ua => $self->_user_agent )
-        ->get($uri)->as_hashref;
-    return $raw;
+    my $summary;
+    try {
+        $summary = Facebook::Graph::Request->new( ua => $self->_user_agent )
+            ->get($uri)->as_hashref;
+    }
+    catch {
+        die "Cannot get metadata summary for $type";
+    };
+
+    return $summary;
 }
 
 1;

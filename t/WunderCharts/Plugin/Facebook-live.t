@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use Test::Fatal qw( exception );
 use Test::More;
 use Test::RequiresInternet (
     'graph.facebook.com' => 443,
@@ -28,6 +29,12 @@ SKIP: {
 
     ok( $photo->comments_count, 'comments' );
     ok( $photo->likes_count,    'likes' );
+
+    like(
+        exception { $plugin->get_object('foo') },
+        qr{Cannot fetch data for foo},
+        'exception on object not found'
+    );
 }
 
 done_testing();
