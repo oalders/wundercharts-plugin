@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::Role::HasUserAgent;
+package WunderCharts::Plugin::Role::HasMechUserAgent;
 
 use Moo::Role;
 
@@ -8,7 +8,7 @@ use Types::Standard qw( InstanceOf );
 
 has _user_agent => (
     is      => 'ro',
-    isa     => InstanceOf ['LWP::UserAgent'],
+    isa     => InstanceOf ['WWW::Mechanize'],
     lazy    => 1,
     handles => [ 'get', 'post' ],
     builder => '_build_user_agent',
