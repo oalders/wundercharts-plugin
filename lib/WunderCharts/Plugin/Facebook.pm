@@ -52,6 +52,13 @@ sub get_user_by_nick {
     return WunderCharts::Plugin::Facebook::User->new( raw => $info );
 }
 
+sub get_photo_by_id {
+    my $self = shift;
+    my $id = shift;
+
+    return $self->get_resource( $id );
+}
+
 sub get_resource {
     my $self = shift;
     my $id   = shift;
