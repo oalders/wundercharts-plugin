@@ -20,8 +20,8 @@ SKIP: {
 
     my $plugin = plugin_for_service('Facebook');
     {
-        my $user = $plugin->get_user_by_nick('JustinBieber');
-        ok( $user, 'got JustinBieber user' );
+        my $page = $plugin->get_page_by_nick('JustinBieber');
+        ok( $page, 'got JustinBieber page' );
     }
 
     my $photo_id = 10154452100783797;

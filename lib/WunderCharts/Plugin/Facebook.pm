@@ -10,7 +10,7 @@ use Types::Standard qw( InstanceOf );
 use URI                                   ();
 use URI::QueryParam                       ();
 use WunderCharts::Plugin::Facebook::Photo ();
-use WunderCharts::Plugin::Facebook::User  ();
+use WunderCharts::Plugin::Facebook::Page  ();
 
 has _client => (
     is      => 'lazy',
@@ -39,17 +39,17 @@ sub _build__client {
 sub _build_url_for_service { 'https://facebook.com' }
 
 # use the id 'me' to get info about the user who is connecting
-sub get_user_by_id {
+sub get_page_by_id {
     return shift->get_user_by_nick(@_);
 }
 
-sub get_user_by_nick {
+sub get_page_by_nick {
     my $self = shift;
     my $id   = shift;
 
     my $info = $self->_client->fetch( $self->maybe_extract_id($id) );
 
-    return WunderCharts::Plugin::Facebook::User->new( raw => $info );
+    return WunderCharts::Plugin::Facebook::Page->new( raw => $info );
 }
 
 sub get_photo_by_id {

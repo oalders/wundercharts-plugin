@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::Facebook::User;
+package WunderCharts::Plugin::Facebook::Photo;
 
 use Moo;
 use MooX::StrictConstructor;
