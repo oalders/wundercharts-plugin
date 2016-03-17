@@ -40,7 +40,7 @@ sub _build_url_for_service { 'https://facebook.com' }
 
 # use the id 'me' to get info about the user who is connecting
 sub get_page_by_id {
-    return shift->get_user_by_nick(@_);
+    return shift->get_page_by_nick(@_);
 }
 
 sub get_page_by_nick {
@@ -62,6 +62,15 @@ sub get_photo_by_id {
 sub get_resource {
     my $self = shift;
     my $id   = shift;
+
+    # https://www.facebook.com/NadaSurf/photos/a.398844673796.174295.248527213796/10154452539183797/?type=3&theater
+    if ( $id =~ m{/} ) {
+        my $uri = URI->new($id);
+        my @segments = $uri->path_segments;
+        if ( @segments > 1 && $segments[2] eq 'photos' ) {
+            $id = $segments[4];
+        }
+    }
 
     my $raw;
 
