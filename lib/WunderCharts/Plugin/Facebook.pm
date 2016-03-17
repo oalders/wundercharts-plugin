@@ -93,6 +93,12 @@ sub get_resource {
     return $class->new(%args);
 }
 
+# Same logic as generic user url logic
+sub url_for_page {
+    my $self = shift;
+    return $self->url_for_user(@_);
+}
+
 sub _get_metadata_summary {
     my $self = shift;
     my $raw  = shift;
