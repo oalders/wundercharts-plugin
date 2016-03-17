@@ -71,8 +71,8 @@ sub get_resource {
     try {
         $raw
             = $self->_client->query->find($id)
-            ->include_metadata
-            ->request( ua => $self->_user_agent )->as_hashref;
+            ->include_metadata->request( ua => $self->_user_agent )
+            ->as_hashref;
     }
     catch {
         die "Cannot fetch data for $id. $_";
