@@ -54,9 +54,9 @@ sub get_user_by_nick {
 
 sub get_photo_by_id {
     my $self = shift;
-    my $id = shift;
+    my $id   = shift;
 
-    return $self->get_resource( $id );
+    return $self->get_resource($id);
 }
 
 sub get_resource {
@@ -72,7 +72,7 @@ sub get_resource {
             ->request( ua => $self->_user_agent )->as_hashref;
     }
     catch {
-        die "Cannot fetch data for $id";
+        die "Cannot fetch data for $id. $_";
     };
 
     my $resource = $raw->{metadata}->{type};

@@ -35,7 +35,7 @@ SKIP: {
         qr{Cannot fetch data for foo},
         'exception on object not found'
     );
-    ok( $plugin->get_photo_by_id( $photo_id), 'get_photo_by_id' );
+    ok( $plugin->get_photo_by_id($photo_id), 'get_photo_by_id' );
 }
 
 done_testing();
