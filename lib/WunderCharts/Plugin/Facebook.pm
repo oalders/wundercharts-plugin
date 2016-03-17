@@ -65,10 +65,13 @@ sub get_resource {
 
     my $raw;
 
+    # Can't select fields at this point because we don't necessarily know what
+    # kind of resource it is.  ->select_fields( 'id', 'link', 'name', )
+
     try {
         $raw
             = $self->_client->query->find($id)
-            ->include_metadata->select_fields( 'id', 'name', )
+            ->include_metadata
             ->request( ua => $self->_user_agent )->as_hashref;
     }
     catch {
@@ -78,9 +81,13 @@ sub get_resource {
     my $resource = $raw->{metadata}->{type};
     my $class    = 'WunderCharts::Plugin::Facebook::' . ucfirst($resource);
     my %args     = (
-        raw          => $raw,
-        raw_comments => $self->_get_metadata_summary( $raw, 'comments' ),
-        raw_likes    => $self->_get_metadata_summary( $raw, 'likes' ),
+        raw => $raw,
+        lc($resource) eq 'photo'
+        ? (
+            raw_comments => $self->_get_metadata_summary( $raw, 'comments' ),
+            raw_likes    => $self->_get_metadata_summary( $raw, 'likes' ),
+            )
+        : (),
     );
 
     return $class->new(%args);
