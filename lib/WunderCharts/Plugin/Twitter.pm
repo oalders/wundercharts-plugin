@@ -13,6 +13,7 @@ has _client => (
 );
 
 with(
+    'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasUserURL',
@@ -50,7 +51,7 @@ sub _user_agent {
 }
 
 # Expects an id assigned by the API -- usually a number
-sub get_user {
+sub get_user_by_id {
     my $self = shift;
     my $id   = shift;
 

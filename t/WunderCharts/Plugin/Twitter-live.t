@@ -22,12 +22,12 @@ SKIP: {
     }
 
     {
-        my $user = $plugin->get_user(29385636);
+        my $user = $plugin->get_user_by_id(29385636);
         ok( $user, 'got wundercounter user' );
     }
 
     like(
-        exception { $plugin->get_user('wundercounterx') },
+        exception { $plugin->get_user_by_nick('wundercounterx') },
         qr{User not found},
         'exception on user not found'
     );

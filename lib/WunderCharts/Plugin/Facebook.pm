@@ -19,6 +19,7 @@ has _client => (
 );
 
 with(
+    'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasLWPUserAgent',
@@ -65,7 +66,7 @@ sub get_resource {
 
     # https://www.facebook.com/NadaSurf/photos/a.398844673796.174295.248527213796/10154452539183797/?type=3&theater
     if ( $id =~ m{/} ) {
-        my $uri = URI->new($id);
+        my $uri      = URI->new($id);
         my @segments = $uri->path_segments;
         if ( @segments > 1 && $segments[2] eq 'photos' ) {
             $id = $segments[4];

@@ -18,6 +18,7 @@ has _client => (
 );
 
 with(
+    'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
@@ -132,3 +133,29 @@ sub url_for_user {
 }
 
 1;
+__END__
+
+# ABSTRACT: Use the Spotify API to look up resources
+
+=head2 get_resource( $str )
+
+Call this method if you don't know what type of resource you're requesting.
+You can pass a Spotify URI or username.  This method will attempt to detect the
+resource you're requesting and will return an appropriate object for the
+resource.
+
+=head2 get_resource_by_id( $resource_type, $id )
+
+Call this method if you know the resource and the id of the resource you're
+looking for.
+
+    my $plugin   = WunderCharts::Plugin::Spotify->new(...);
+    my $id       = '0eGsygTp906u18L0Oimnem';
+    my $resource = $plugin->get_resource_by_id( 'track', $id );
+
+    # If successful, $resource returns a WunderCharts::Plugin::Spotify::Track
+    # object.
+
+Valid resource types are C<artist>, C<track> and C<user>.
+
+=
