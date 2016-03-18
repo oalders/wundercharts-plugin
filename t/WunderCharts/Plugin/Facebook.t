@@ -31,6 +31,9 @@ is(
     'JustinBieber', 'returns pure id intact'
 );
 
-is( $plugin->url_for_page('X'), 'https://facebook.com/X', 'url_for_page' );
+is(
+    $plugin->url_for( 'page', 'X' ), 'https://facebook.com/X',
+    'url_for page'
+);
 
 done_testing();

@@ -21,8 +21,8 @@ has _client => (
 with(
     'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
-    'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasLWPUserAgent',
+    'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
@@ -103,10 +103,12 @@ sub get_resource {
     return $class->new(%args);
 }
 
-# Same logic as generic user url logic
-sub url_for_page {
-    my $self = shift;
-    return $self->url_for_user(@_);
+sub url_for {
+    my $self          = shift;
+    my $resource_type = shift;
+    my $id            = shift;
+
+    return $self->url_for_user($id) if $resource_type eq 'page';
 }
 
 sub _get_metadata_summary {

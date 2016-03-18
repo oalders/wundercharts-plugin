@@ -16,8 +16,9 @@ has _client => (
 with(
     'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
-    'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasMechUserAgent',
+    'WunderCharts::Plugin::Role::HasServiceURL',
+    'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
 
@@ -63,11 +64,12 @@ sub get_user_by_nick {
     }
 }
 
-sub url_for_user {
-    my $self = shift;
-    my $id   = shift;
+sub url_for {
+    my $self          = shift;
+    my $resource_type = shift;
+    my $id            = shift;
 
-    return 'https://instagram.com/' . $id;
+    return $self->url_for_user($id) if $resource_type eq 'user';
 }
 
 sub _get_url {

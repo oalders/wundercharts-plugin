@@ -20,4 +20,9 @@ foreach my $url (@urls) {
     );
 }
 
+is(
+    $plugin->url_for( 'user', 'oalders' ), 'https://github.com/oalders',
+    'url_for user'
+);
+
 done_testing();
