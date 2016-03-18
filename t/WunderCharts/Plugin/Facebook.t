@@ -36,4 +36,10 @@ is(
     'url_for page'
 );
 
+is(
+    $plugin->url_for( 'user', 'X' ),
+    'https://facebook.com/app_scoped_user_id/X/',
+    'url_for page'
+);
+
 done_testing();

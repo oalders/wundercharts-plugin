@@ -109,6 +109,15 @@ sub url_for {
     my $id            = shift;
 
     return $self->url_for_user($id) if $resource_type eq 'page';
+
+    # For an _actual_ user, we use the following URL, even though we don't
+    # currently actually deal with User objects:
+
+    if ( $resource_type eq 'user' ) {
+        my $url = $self->url_for_service->clone;
+        $url->path( sprintf( '/app_scoped_user_id/%s/', $id ) );
+        return $url;
+    }
 }
 
 sub _get_metadata_summary {

@@ -36,6 +36,9 @@ SKIP: {
         'exception on object not found'
     );
     ok( $plugin->get_photo_by_id($photo_id), 'get_photo_by_id' );
+
+    my $me = $plugin->get_page_by_id('me');
+    ok( $me, 'got me' );
 }
 
 done_testing();
