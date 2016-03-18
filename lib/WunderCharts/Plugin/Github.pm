@@ -5,6 +5,7 @@ use MooX::StrictConstructor;
 
 use Pithub;
 use Types::Standard qw( InstanceOf );
+use URI;
 use WunderCharts::Plugin::Github::User;
 
 has _client => (
@@ -32,6 +33,35 @@ sub _build__client {
 }
 
 sub _build_url_for_service { 'https://github.com' }
+
+# https://github.com/oalders/http-browserdetect/
+# https://github.com/oalders/
+# git@github.com:oalders/http-browserdetect.git
+# https://github.com/oalders/http-browserdetect.git
+# oalders
+# oalders/http-browserdetect
+
+sub detect_resource {
+    my $self     = shift;
+    my $maybe_id = shift;
+    unless ( $maybe_id =~ m{/} ) {
+
+        # @username
+        $maybe_id =~ s{\A\@}{};
+        return ( 'user', $maybe_id );
+    }
+
+    my $uri = URI->new($maybe_id);
+
+    # toss out empty strings
+    my @parts = grep { $_ } $uri->path_segments;
+    if ( @parts > 1 ) {
+        $parts[1] =~ s{\.git\z}{};
+        return ( 'repo', $parts[0], $parts[1] );
+    }
+
+    return ( 'user', $parts[0] );
+}
 
 sub get_user_by_nick {
     my $self = shift;
