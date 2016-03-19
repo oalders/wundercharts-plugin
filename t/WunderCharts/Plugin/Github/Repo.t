@@ -8,13 +8,13 @@ use Test::More;
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw( resource_for_service );
 
-my $user = resource_for_service(
+my $repo = resource_for_service(
     'Github', 'Repo',
     'oalders-http-browserdetect.json'
 );
 
 is_deeply(
-    $user->trackable_data,
+    $repo->trackable_data,
     {
         forks_count       => 32,
         open_issues_count => 19,
@@ -23,5 +23,8 @@ is_deeply(
     },
     'trackable_data'
 );
+
+is( $repo->id, 341390, 'id' );
+is( $repo->nick, 'oalders/http-browserdetect', 'nick' );
 
 done_testing();

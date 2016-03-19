@@ -16,7 +16,6 @@ has _client => (
 );
 
 with(
-    'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasUserURL',
@@ -27,9 +26,9 @@ sub _build__client {
     my $self = shift;
 
     return Pithub->new(
+        access_token => $self->_access_token,
         app_id       => $self->_consumer_key,
         secret       => $self->_consumer_secret,
-        access_token => $self->_access_token,
     );
 }
 
@@ -76,6 +75,19 @@ sub get_repo {
         raw => $response->content );
 }
 
+sub get_resource_by_nick {
+    my $self          = shift;
+    my $resource_type = shift;
+    my $nick          = shift;
+
+    # $nick = 'oalders/http-browserdetect'
+    if ( $resource_type eq 'repo' ) {
+        return $self->get_repo( split m{/}, $nick );
+    }
+
+    return $self->get_user_by_nick($nick);
+}
+
 sub get_user_by_nick {
     my $self = shift;
 
@@ -98,3 +110,14 @@ sub url_for {
 }
 
 1;
+__END__
+
+=head2 get_resource_by_nick
+
+The GitHub API provides numeric ids for resources, but doesn't appear to
+provide a way to use these ids to fetch the resources directly.  So, having a
+C<get_resource_by_id> method is not helpful here.  Instead we'll fetch
+resources by nicks.  For users, we'll use the C<username> rather than C<id> and
+for repositories we'll use the C<full_name> rather than the C<id>.
+
+=cut

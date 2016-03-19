@@ -17,7 +17,11 @@ is_deeply(
         following    => 94,
         public_gists => 58,
         public_repos => 191,
-    }
+    },
+    'trackable_data'
 );
+
+is( $user->id,   96205,     'id' );
+is( $user->nick, 'oalders', 'nick' );
 
 done_testing();

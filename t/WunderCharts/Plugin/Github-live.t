@@ -28,8 +28,16 @@ SKIP: {
     }
 
     {
-        my $user = $plugin->get_resource_by_id( 'user', 'oalders' );
-        ok( $user, 'got oalders user' );
+        my $repo = $plugin->get_resource_by_nick(
+            'repo',
+            'oalders/http-browserdetect'
+        );
+        ok( $repo, 'got oalders/http-browserdetect repo' );
+    }
+
+    {
+        my $repo = $plugin->get_resource_by_nick( 'user', 'oalders' );
+        ok( $repo, 'got oalders user' );
     }
 }
 

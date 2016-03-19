@@ -41,6 +41,13 @@ has name => (
     default => sub { shift->_raw->{name} },
 );
 
+has nick => (
+    is      => 'ro',
+    isa     => Str,
+    lazy    => 1,
+    default => sub { shift->_raw->{login} },
+);
+
 has public_gists => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,

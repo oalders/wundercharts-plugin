@@ -41,6 +41,13 @@ has name => (
     default => sub { shift->_raw->{name} },
 );
 
+has nick => (
+    is      => 'ro',
+    isa     => Str,
+    lazy    => 1,
+    default => sub { shift->_raw->{full_name} },
+);
+
 has subscribers_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
