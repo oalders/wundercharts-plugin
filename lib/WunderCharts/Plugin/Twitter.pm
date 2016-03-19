@@ -61,10 +61,6 @@ sub detect_resource {
 
     return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
 
-    if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
-        return ( $1, $2 );
-    }
-
     # https://twitter.com/wundercounter
     # https://twitter.com/wundercounter/status/570454045099307008
 
@@ -100,6 +96,17 @@ sub get_user_by_nick {
     my $info = $self->_client->show_user($id);
 
     return WunderCharts::Plugin::Twitter::User->new( raw => $info );
+}
+
+sub get_resource {
+    my $self = shift;
+    my $name = shift;
+
+    my @resource = $self->detect_resource($name);
+    if ( $resource[0] eq 'user' && $resource[1] !~ m{a-zA-Z} ) {
+        return $self->get_user_by_id( $resource[1] );
+    }
+    return $self->get_resource_by_id(@resource);
 }
 
 sub get_status_by_id {

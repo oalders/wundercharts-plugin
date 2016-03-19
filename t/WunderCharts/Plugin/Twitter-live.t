@@ -31,6 +31,22 @@ SKIP: {
         ok( $status, 'got wundercounter status' );
     }
 
+    {
+        ok(
+            $plugin->get_resource(
+                'https://twitter.com/wundercounter/status/570454045099307008'
+            ),
+            'get_resource via status url'
+        );
+    }
+
+    {
+        ok(
+            $plugin->get_resource('https://twitter.com/wundercounter'),
+            'get_resource via user url'
+        );
+    }
+
     like(
         exception { $plugin->get_user_by_nick('wundercounterx') },
         qr{User not found},
