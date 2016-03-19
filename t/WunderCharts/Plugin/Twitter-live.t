@@ -47,6 +47,20 @@ SKIP: {
         );
     }
 
+    {
+        ok(
+            $plugin->get_resource('wundercounter'),
+            'get_resource via nick'
+        );
+    }
+
+    {
+        ok(
+            $plugin->get_resource('@wundercounter'),
+            'get_resource via @nick'
+        );
+    }
+
     like(
         exception { $plugin->get_user_by_nick('wundercounterx') },
         qr{User not found},

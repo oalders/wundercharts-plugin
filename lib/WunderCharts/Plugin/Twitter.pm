@@ -83,19 +83,19 @@ sub get_user_by_id {
     my $self = shift;
     my $id   = shift;
 
-    my $info = $self->_client->show_user( { user_id => $id } );
+    my $raw = $self->_client->show_user( { user_id => $id } );
 
-    return WunderCharts::Plugin::Twitter::User->new( raw => $info );
+    return WunderCharts::Plugin::Twitter::User->new( raw => $raw );
 }
 
 # search for user via @nick
 sub get_user_by_nick {
     my $self = shift;
 
-    my $id   = $self->maybe_extract_id(shift);
-    my $info = $self->_client->show_user($id);
+    my $id  = $self->maybe_extract_id(shift);
+    my $raw = $self->_client->show_user($id);
 
-    return WunderCharts::Plugin::Twitter::User->new( raw => $info );
+    return WunderCharts::Plugin::Twitter::User->new( raw => $raw );
 }
 
 sub get_resource {
@@ -103,8 +103,8 @@ sub get_resource {
     my $name = shift;
 
     my @resource = $self->detect_resource($name);
-    if ( $resource[0] eq 'user' && $resource[1] !~ m{a-zA-Z} ) {
-        return $self->get_user_by_id( $resource[1] );
+    if ( $resource[0] eq 'user' && $resource[1] =~ m{[a-zA-Z]} ) {
+        return $self->get_user_by_nick( $resource[1] );
     }
     return $self->get_resource_by_id(@resource);
 }
@@ -113,8 +113,8 @@ sub get_status_by_id {
     my $self = shift;
     my $id   = shift;
 
-    my $info = $self->_client->show_status($id);
-    return WunderCharts::Plugin::Twitter::Status->new( raw => $info );
+    my $raw = $self->_client->show_status($id);
+    return WunderCharts::Plugin::Twitter::Status->new( raw => $raw );
 }
 
 sub url_for {
