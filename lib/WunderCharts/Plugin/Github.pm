@@ -6,6 +6,7 @@ use MooX::StrictConstructor;
 use Pithub;
 use Types::Standard qw( InstanceOf );
 use URI;
+use WunderCharts::Plugin::Github::Repo;
 use WunderCharts::Plugin::Github::User;
 
 has _client => (
@@ -61,6 +62,18 @@ sub detect_resource {
     }
 
     return ( 'user', $parts[0] );
+}
+
+sub get_repo {
+    my $self = shift;
+    my $user = shift;
+    my $repo = shift;
+
+    my $response = $self->_client->repos->get( user => $user, repo => $repo );
+    return unless $response->success;
+
+    return WunderCharts::Plugin::Github::Repo->new(
+        raw => $response->content );
 }
 
 sub get_user_by_nick {

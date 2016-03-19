@@ -21,6 +21,16 @@ SKIP: {
         my $user = $plugin->get_user_by_nick('oalders');
         ok( $user, 'got oalders user' );
     }
+
+    {
+        my $repo = $plugin->get_repo( 'oalders', 'http-browserdetect' );
+        ok( $repo, 'oalders/http-browserdetect repo' );
+    }
+
+    {
+        my $user = $plugin->get_resource_by_id( 'user', 'oalders' );
+        ok( $user, 'got oalders user' );
+    }
 }
 
 done_testing();
