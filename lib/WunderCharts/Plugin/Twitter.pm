@@ -5,6 +5,7 @@ use MooX::StrictConstructor;
 
 use Net::Twitter;
 use Types::Standard qw( InstanceOf );
+use WunderCharts::Plugin::Twitter::Status;
 use WunderCharts::Plugin::Twitter::User;
 
 has _client => (
@@ -68,6 +69,14 @@ sub get_user_by_nick {
     my $info = $self->_client->show_user($id);
 
     return WunderCharts::Plugin::Twitter::User->new( raw => $info );
+}
+
+sub get_status_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    my $info = $self->_client->show_status($id);
+    return WunderCharts::Plugin::Twitter::Status->new( raw => $info );
 }
 
 sub url_for {

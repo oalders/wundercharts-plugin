@@ -26,6 +26,11 @@ SKIP: {
         ok( $user, 'got wundercounter user' );
     }
 
+    {
+        my $status = $plugin->get_status_by_id(570454045099307008);
+        ok( $status, 'got wundercounter status' );
+    }
+
     like(
         exception { $plugin->get_user_by_nick('wundercounterx') },
         qr{User not found},
