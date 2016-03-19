@@ -23,5 +23,6 @@ is_deeply(
 );
 
 is( $status->id, 570454045099307008, 'id' );
+ok( $status->name, 'name sourced from tweet text' );
 
 done_testing();
