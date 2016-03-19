@@ -16,4 +16,17 @@ is(
     'extracts id url with query'
 );
 
+my %resources = (
+    'https://twitter.com/wundercounter/status/570454045099307008' =>
+        [ 'status', '570454045099307008' ],
+    'https://twitter.com/wundercounter' => [ 'user', 'wundercounter' ],
+);
+
+foreach my $resource ( keys %resources ) {
+    is_deeply(
+        [ $plugin->detect_resource($resource) ],
+        $resources{$resource}, 'detected resource for ' . $resource
+    );
+}
+
 done_testing();

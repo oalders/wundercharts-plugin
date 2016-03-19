@@ -51,6 +51,37 @@ sub _user_agent {
     return $self->_client->ua;
 }
 
+sub detect_resource {
+    my $self = shift;
+    my $arg  = shift;
+
+    if ( substr( $arg, 0, 1 ) eq '@' ) {
+        return ( 'user', substr( $arg, 1 ) );
+    }
+
+    return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
+
+    if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
+        return ( $1, $2 );
+    }
+
+    # https://twitter.com/wundercounter
+    # https://twitter.com/wundercounter/status/570454045099307008
+
+    if ( $arg =~ m{\Ahttp} ) {
+        my $uri = URI->new($arg);
+        my @segments = grep { $_ } $uri->path_segments;
+        if ( @segments == 1 ) {
+            return ( 'user', $segments[0] );
+        }
+        if ( $segments[1] eq 'status' ) {
+            return ( 'status', $segments[2] );
+        }
+    }
+
+    die "$arg does not appear to be a valid Twitter resource.";
+}
+
 # Expects an id assigned by the API -- usually a number
 sub get_user_by_id {
     my $self = shift;
