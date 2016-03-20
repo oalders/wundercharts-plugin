@@ -16,9 +16,9 @@ has _client => (
 with(
     'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
-    'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth',
+    'WunderCharts::Plugin::Role::Twitter::HasServiceURL',
 );
 
 # Using our own UA leads to JSON parsing errors in Net::Twitter.  Enabling
