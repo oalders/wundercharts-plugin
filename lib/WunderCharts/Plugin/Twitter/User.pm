@@ -65,16 +65,15 @@ has statuses_count => (
 
 with(
     'WunderCharts::Plugin::Role::HasRawData',
-    'WunderCharts::Plugin::Role::HasTrackableData',
     'WunderCharts::Plugin::Role::HasResourceURL',
+    'WunderCharts::Plugin::Role::HasTrackableData',
+    'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::Twitter::HasServiceURL',
 );
 
 sub _build_resource_url {
     my $self = shift;
-    my $url  = $self->service_url->clone;
-    $url->path( '/' . $self->screen_name );
-    return $url->as_string;
+    return $self->url_for_user( $self->screen_name )->as_string;
 }
 
 sub _build_trackables {
