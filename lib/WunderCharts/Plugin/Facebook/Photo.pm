@@ -4,6 +4,7 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Types::Common::Numeric qw( PositiveInt PositiveOrZeroInt );
+use Types::Common::String qw( NonEmptyStr );
 use Types::Standard qw( ArrayRef HashRef Str);
 
 has id => (
@@ -46,6 +47,13 @@ has _raw_likes => (
     isa      => HashRef,
     init_arg => 'raw_likes',
     required => 1,
+);
+
+has resource_url => (
+    is      => 'ro',
+    isa     => NonEmptyStr,
+    lazy    => 1,
+    default => sub { shift->_raw->{link} },
 );
 
 with 'WunderCharts::Plugin::Role::HasRawData',

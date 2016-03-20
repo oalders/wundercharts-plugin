@@ -29,6 +29,11 @@ SKIP: {
 
     ok( $photo->comments_count, 'comments' );
     ok( $photo->likes_count,    'likes' );
+    is(
+        $photo->resource_url,
+        'https://www.facebook.com/NadaSurf/photos/a.398844673796.174295.248527213796/10154452100783797/?type=3',
+        'resource_url'
+    );
 
     like(
         exception { $plugin->get_resource('foo') },
