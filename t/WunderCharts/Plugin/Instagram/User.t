@@ -16,7 +16,10 @@ is_deeply(
         followers_count => 45,
         following_count => 2,
         media_count     => 7,
-    }
+    },
+    'trackable_data'
 );
+
+is( $user->resource_url, 'https://instagram.com/oalders', 'resource_url' );
 
 done_testing();

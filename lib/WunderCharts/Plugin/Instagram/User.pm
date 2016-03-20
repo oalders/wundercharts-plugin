@@ -51,11 +51,27 @@ has name => (
     },
 );
 
-with 'WunderCharts::Plugin::Role::HasRawData',
-    'WunderCharts::Plugin::Role::HasTrackableData';
+with(
+    'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasResourceURL',
+    'WunderCharts::Plugin::Role::Instagram::HasServiceURL',
+    'WunderCharts::Plugin::Role::HasTrackableData',
+    'WunderCharts::Plugin::Role::HasUserURL',
+);
+
+sub _build_resource_url {
+    my $self = shift;
+
+    return $self->url_for_user( $self->nick )->as_string;
+}
 
 sub _build_trackables {
     return [ 'followers_count', 'following_count', 'media_count', ];
+}
+
+sub nick {
+    my $self = shift;
+    return $self->login;
 }
 
 1;

@@ -17,12 +17,10 @@ with(
     'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasMechUserAgent',
-    'WunderCharts::Plugin::Role::HasServiceURL',
+    'WunderCharts::Plugin::Role::Instagram::HasServiceURL',
     'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
-
-sub _build_service_url { 'https://instagram.com' }
 
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {
@@ -62,14 +60,6 @@ sub get_user_by_nick {
             return $self->get_user_by_id( $user->{id} );
         }
     }
-}
-
-sub url_for {
-    my $self          = shift;
-    my $resource_type = shift;
-    my $id            = shift;
-
-    return $self->url_for_user($id) if $resource_type eq 'user';
 }
 
 sub _get_url {
