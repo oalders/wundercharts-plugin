@@ -20,4 +20,7 @@ is_deeply(
     }
 );
 
+is( $user->screen_name, 'wundercounter', 'screen_name' );
+is( $user->resource_url, 'https://twitter.com/wundercounter' );
+
 done_testing();
