@@ -17,7 +17,13 @@ is_deeply(
         likes               => 72_926_638,
         talking_about_count => 1_312_378,
         were_here_count     => 0,
-    }
+    },
+    'trackable_data'
+);
+
+is(
+    $user->resource_url, 'https://www.facebook.com/JustinBieber',
+    'resource_url'
 );
 
 done_testing();

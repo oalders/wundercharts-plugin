@@ -4,6 +4,7 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Types::Common::Numeric qw( PositiveOrZeroInt );
+use Types::Common::String qw( NonEmptyStr );
 use Types::Standard qw( ArrayRef HashRef Str);
 
 has checkins => (
@@ -39,6 +40,13 @@ has name => (
     isa     => Str,
     lazy    => 1,
     default => sub { shift->_raw->{name} },
+);
+
+has resource_url => (
+    is      => 'ro',
+    isa     => NonEmptyStr,
+    lazy    => 1,
+    default => sub { shift->_raw->{link} },
 );
 
 has talking_about_count => (
