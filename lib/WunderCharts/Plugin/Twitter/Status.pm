@@ -14,6 +14,13 @@ has favorite_count => (
     default => sub { shift->_raw->{favorite_count} },
 );
 
+has id => (
+    is      => 'ro',
+    isa     => PositiveOrZeroInt,
+    lazy    => 1,
+    default => sub { shift->_raw->{id} },
+);
+
 has name => (
     is      => 'ro',
     isa     => NonEmptyStr,
@@ -26,13 +33,6 @@ has retweet_count => (
     isa     => PositiveOrZeroInt,
     lazy    => 1,
     default => sub { shift->_raw->{retweet_count} },
-);
-
-has id => (
-    is      => 'ro',
-    isa     => PositiveOrZeroInt,
-    lazy    => 1,
-    default => sub { shift->_raw->{id} },
 );
 
 with 'WunderCharts::Plugin::Role::HasRawData',
