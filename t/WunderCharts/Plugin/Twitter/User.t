@@ -17,10 +17,14 @@ is_deeply(
         friends_count   => 1778,
         listed_count    => 67,
         statuses_count  => 2035,
-    }
+    },
+    'trackable_data'
 );
 
 is( $user->screen_name, 'wundercounter', 'screen_name' );
-is( $user->resource_url, 'https://twitter.com/wundercounter' );
+is(
+    $user->resource_url, 'https://twitter.com/wundercounter',
+    'resource_url'
+);
 
 done_testing();

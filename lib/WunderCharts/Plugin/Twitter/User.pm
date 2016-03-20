@@ -4,6 +4,7 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Types::Common::Numeric qw( PositiveOrZeroInt );
+use Types::Common::String qw( NonEmptyStr );
 use Types::Standard qw( HashRef Str);
 
 has followers_count => (
@@ -50,7 +51,7 @@ has login => (
 
 has screen_name => (
     is      => 'ro',
-    isa     => Str,
+    isa     => NonEmptyStr,
     lazy    => 1,
     default => sub { shift->_raw->{screen_name} },
 );
@@ -66,13 +67,13 @@ with(
     'WunderCharts::Plugin::Role::HasRawData',
     'WunderCharts::Plugin::Role::HasTrackableData',
     'WunderCharts::Plugin::Role::HasResourceURL',
-    'WunderCharts::Plugin::Role::HasServiceURL',
+    'WunderCharts::Plugin::Role::Twitter::HasServiceURL',
 );
 
 sub _build_resource_url {
     my $self = shift;
     my $url  = $self->service_url->clone;
-    $url->path( '/', $self->screen_name );
+    $url->path( '/' . $self->screen_name );
     return $url->as_string;
 }
 
