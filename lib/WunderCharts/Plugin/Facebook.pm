@@ -37,7 +37,7 @@ sub _build__client {
     );
 }
 
-sub _build_url_for_service { 'https://facebook.com' }
+sub _build_service_url { 'https://facebook.com' }
 
 # use the id 'me' to get info about the user who is connecting
 sub get_page_by_id {
@@ -114,7 +114,7 @@ sub url_for {
     # currently actually deal with User objects:
 
     if ( $resource_type eq 'user' ) {
-        my $url = $self->url_for_service->clone;
+        my $url = $self->service_url->clone;
         $url->path( sprintf( '/app_scoped_user_id/%s/', $id ) );
         return $url;
     }

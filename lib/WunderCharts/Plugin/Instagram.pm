@@ -22,7 +22,7 @@ with(
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
 
-sub _build_url_for_service { 'https://instagram.com' }
+sub _build_service_url { 'https://instagram.com' }
 
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {

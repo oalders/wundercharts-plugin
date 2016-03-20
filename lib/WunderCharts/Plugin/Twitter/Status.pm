@@ -51,13 +51,14 @@ has screen_name => (
 
 with(
     'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasResourceURL',
     'WunderCharts::Plugin::Role::HasTrackableData',
     'WunderCharts::Plugin::Role::Twitter::HasServiceURL',
 );
 
 sub _build_resource_url {
     my $self = shift;
-    my $url  = $self->url_for_service->clone;
+    my $url  = $self->service_url->clone;
     $url->path( sprintf( '/%s/status/%s', $self->screen_name, $self->id ) );
     return $url->as_string;
 }

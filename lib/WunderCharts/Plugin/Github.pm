@@ -32,7 +32,7 @@ sub _build__client {
     );
 }
 
-sub _build_url_for_service { 'https://github.com' }
+sub _build_service_url { 'https://github.com' }
 
 # https://github.com/oalders/http-browserdetect/
 # https://github.com/oalders/

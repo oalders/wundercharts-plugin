@@ -44,7 +44,7 @@ sub _build__client {
     return $nt;
 }
 
-sub _build_url_for_service { 'https://twitter.com/' }
+sub _build_service_url { 'https://twitter.com/' }
 
 sub _user_agent {
     my $self = shift;

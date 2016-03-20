@@ -6,7 +6,7 @@ sub url_for_user {
     my $self     = shift;
     my $username = shift;
 
-    my $url = $self->url_for_service->clone;
+    my $url = $self->service_url->clone;
     $url->path($username);
     return $url;
 }

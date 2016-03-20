@@ -35,7 +35,7 @@ sub _build__client {
     );
 }
 
-sub _build_url_for_service { 'https://spotify.com' }
+sub _build_service_url { 'https://spotify.com' }
 
 =head2 get_resource
 
