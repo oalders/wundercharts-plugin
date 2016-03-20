@@ -6,8 +6,6 @@ use MooX::StrictConstructor;
 use Types::Common::Numeric qw( PositiveOrZeroInt );
 use Types::Standard qw( Str );
 
-with 'WunderCharts::Plugin::Role::HasRawData';
-
 has name => (
     is      => 'ro',
     isa     => Str,
@@ -22,7 +20,11 @@ has popularity => (
     default => sub { shift->_raw->{popularity} },
 );
 
-with 'WunderCharts::Plugin::Role::HasTrackableData';
+with(
+    'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasTrackableData',
+    'WunderCharts::Plugin::Spotify::HasResourceURL',
+);
 
 sub _build_trackables {
     return ['popularity'];

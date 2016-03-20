@@ -37,8 +37,11 @@ has name => (
     },
 );
 
-with 'WunderCharts::Plugin::Role::HasRawData',
-    'WunderCharts::Plugin::Role::HasTrackableData';
+with(
+    'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasTrackableData',
+    'WunderCharts::Plugin::Spotify::HasResourceURL'
+);
 
 sub _build_trackables {
     return ['followers_count'];

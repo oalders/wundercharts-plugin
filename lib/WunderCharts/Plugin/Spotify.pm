@@ -126,21 +126,6 @@ sub get_user_by_nick {
     return WunderCharts::Plugin::Spotify::User->new( raw => $raw );
 }
 
-sub url_for_user {
-    my $self = shift;
-    my $id   = shift;
-
-    return 'https://open.spotify.com/user/' . $id;
-}
-
-sub url_for {
-    my $self          = shift;
-    my $resource_type = shift;
-    my $id            = shift;
-
-    return $self->url_for_user($id) if $resource_type eq 'user';
-}
-
 1;
 __END__
 

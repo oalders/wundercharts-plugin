@@ -34,8 +34,11 @@ has id => (
     default => sub { shift->_raw->{id} },
 );
 
-with 'WunderCharts::Plugin::Role::HasRawData',
-    'WunderCharts::Plugin::Role::HasTrackableData';
+with(
+    'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasTrackableData',
+    'WunderCharts::Plugin::Spotify::HasResourceURL',
+);
 
 sub _build_trackables {
     return [ 'followers_count', 'popularity' ];
