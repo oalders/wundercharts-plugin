@@ -2,6 +2,8 @@ package WunderCharts::Plugin::Role::HasResourceURL;
 
 use Moo::Role;
 
+use Types::Common::String qw( NonEmptyStr );
+
 has resource_url => (
     is      => 'ro',
     isa     => NonEmptyStr,
