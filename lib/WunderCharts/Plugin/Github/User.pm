@@ -63,10 +63,16 @@ has public_repos => (
 );
 
 with 'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasResourceURL',
     'WunderCharts::Plugin::Role::HasTrackableData';
 
 sub _build_trackables {
     [ 'followers', 'following', 'public_gists', 'public_repos', ];
+}
+
+sub _build_resource_url {
+    my $self = shift;
+    return $self->_raw->{html_url};
 }
 
 1;

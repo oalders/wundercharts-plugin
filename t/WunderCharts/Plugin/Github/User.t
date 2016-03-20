@@ -21,7 +21,8 @@ is_deeply(
     'trackable_data'
 );
 
-is( $user->id,   96205,     'id' );
-is( $user->nick, 'oalders', 'nick' );
+is( $user->id,           96205,                        'id' );
+is( $user->nick,         'oalders',                    'nick' );
+is( $user->resource_url, 'https://github.com/oalders', 'resource_url' );
 
 done_testing();
