@@ -26,5 +26,9 @@ is_deeply(
 
 is( $repo->id, 341390, 'id' );
 is( $repo->nick, 'oalders/http-browserdetect', 'nick' );
+is(
+    $repo->resource_url, 'https://github.com/oalders/http-browserdetect',
+    'resource_url'
+);
 
 done_testing();

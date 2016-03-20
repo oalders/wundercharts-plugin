@@ -55,14 +55,22 @@ has subscribers_count => (
     default => sub { shift->_raw->{subscribers_count} },
 );
 
-with 'WunderCharts::Plugin::Role::HasRawData',
-    'WunderCharts::Plugin::Role::HasTrackableData';
+with(
+    'WunderCharts::Plugin::Role::HasRawData',
+    'WunderCharts::Plugin::Role::HasResourceURL',
+    'WunderCharts::Plugin::Role::HasTrackableData',
+);
 
 sub _build_trackables {
     [
         'forks_count', 'open_issues_count', 'stargazers_count',
         'subscribers_count',
     ];
+}
+
+sub _build_resource_url {
+    my $self = shift;
+    return $self->_raw->{html_url};
 }
 
 1;
