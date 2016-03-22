@@ -21,7 +21,6 @@ with(
     'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasServiceURL',
-    'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
 
@@ -124,6 +123,12 @@ sub get_user_by_nick {
 
     my $raw = $self->_handle_response( 'user', $id );
     return WunderCharts::Plugin::Spotify::User->new( raw => $raw );
+}
+
+sub url_for_user {
+    my $self = shift;
+    my $nick = shift;
+    return 'https://open.spotify.com/user/' . $nick;
 }
 
 1;
