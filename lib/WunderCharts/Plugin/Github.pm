@@ -75,6 +75,13 @@ sub get_repo {
         raw => $response->content );
 }
 
+sub get_resource {
+    my $self = shift;
+    my $id   = shift;
+
+    return $self->get_resource_by_nick( $self->detect_resource($id) );
+}
+
 sub get_resource_by_nick {
     my $self          = shift;
     my $resource_type = shift;
