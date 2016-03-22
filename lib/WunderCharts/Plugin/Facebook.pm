@@ -23,7 +23,6 @@ with(
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasLWPUserAgent',
     'WunderCharts::Plugin::Role::HasServiceURL',
-    'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
 
@@ -103,21 +102,24 @@ sub get_resource {
     return $class->new(%args);
 }
 
-sub url_for {
-    my $self          = shift;
-    my $resource_type = shift;
-    my $id            = shift;
+=head2 url_for_user_by_id( $numeric_id )
 
-    return $self->url_for_user($id) if $resource_type eq 'page';
+We don't currently deal with User objects, but we do want to be able to link
+back to a user page from the web UI after a user logs in via Facebook.  This
+method requires the numeric id of the user's facebook account.
+
+=cut
+
+sub url_for_user_by_id {
+    my $self = shift;
+    my $id   = shift;
 
     # For an _actual_ user, we use the following URL, even though we don't
     # currently actually deal with User objects:
 
-    if ( $resource_type eq 'user' ) {
-        my $url = $self->service_url->clone;
-        $url->path( sprintf( '/app_scoped_user_id/%s/', $id ) );
-        return $url;
-    }
+    my $url = $self->service_url->clone;
+    $url->path( sprintf( '/app_scoped_user_id/%s/', $id ) );
+    return $url;
 }
 
 sub _get_metadata_summary {
