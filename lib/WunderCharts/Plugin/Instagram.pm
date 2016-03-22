@@ -22,6 +22,30 @@ with(
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
 
+sub detect_resource {
+    my $self = shift;
+    my $arg  = shift;
+
+    if ( substr( $arg, 0, 1 ) eq '@' ) {
+        return ( 'user', substr( $arg, 1 ) );
+    }
+
+    return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
+
+    die "$arg does not appear to be a valid Twitter resource.";
+}
+
+sub get_resource {
+    my $self = shift;
+    my $name = shift;
+
+    my @resource = $self->detect_resource($name);
+    if ( $resource[0] eq 'user' && $resource[1] =~ m{[a-zA-Z]} ) {
+        return $self->get_user_by_nick( $resource[1] );
+    }
+    return $self->get_resource_by_id(@resource);
+}
+
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {
     my $self = shift;
