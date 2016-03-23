@@ -79,7 +79,14 @@ sub get_resource {
     my $self = shift;
     my $id   = shift;
 
-    return $self->get_resource_by_nick( $self->detect_resource($id) );
+    my ( $resource_type, $username, $repo ) = $self->detect_resource($id);
+    if ( $resource_type eq 'user' ) {
+        return $self->get_user_by_nick($username);
+    }
+    if ( $resource_type eq 'repo' ) {
+        return $self->get_repo( $username, $repo );
+    }
+    die 'Cannot fetch resource type ' . $resource_type;
 }
 
 sub get_resource_by_nick {
