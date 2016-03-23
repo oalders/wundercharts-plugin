@@ -32,7 +32,17 @@ sub detect_resource {
 
     return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
 
-    die "$arg does not appear to be a valid Twitter resource.";
+    my $uri = URI->new($arg);
+
+    # toss out empty strings
+    my @parts = grep { $_ } $uri->path_segments;
+    if ( $parts[0] && $parts[0] eq 'p' ) {
+        return ( 'media', $parts[1] );
+    }
+
+    return ( 'user', $parts[0] );
+
+    die "$arg does not appear to be a valid Instagram source.";
 }
 
 sub get_resource {
