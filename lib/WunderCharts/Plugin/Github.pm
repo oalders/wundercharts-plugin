@@ -115,14 +115,6 @@ sub get_user_by_nick {
         raw => $response->content );
 }
 
-sub url_for {
-    my $self          = shift;
-    my $resource_type = shift;
-    my $id            = shift;
-
-    return $self->url_for_user($id) if $resource_type eq 'user';
-}
-
 1;
 __END__
 
