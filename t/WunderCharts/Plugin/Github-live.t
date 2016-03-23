@@ -39,6 +39,16 @@ SKIP: {
         my $repo = $plugin->get_resource_by_nick( 'user', 'oalders' );
         ok( $repo, 'got oalders user' );
     }
+
+    my @urls = (
+        'git@github.com:oalders/http-browserdetect.git',
+        'https://github.com/oalders/',
+    );
+
+    foreach my $url (@urls) {
+        my $resource = $plugin->detect_resource($url);
+        ok( $resource, 'got resource via ' . $url );
+    }
 }
 
 done_testing();
