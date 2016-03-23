@@ -6,6 +6,13 @@ use MooX::StrictConstructor;
 use Types::Common::Numeric qw( PositiveOrZeroInt );
 use Types::Standard qw( Str );
 
+has id => (
+    is      => 'ro',
+    isa     => Str,
+    lazy    => 1,
+    default => sub { shift->_raw->{id} },
+);
+
 has name => (
     is      => 'ro',
     isa     => Str,
