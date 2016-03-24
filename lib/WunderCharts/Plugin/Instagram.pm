@@ -6,7 +6,9 @@ use MooX::StrictConstructor;
 use Cpanel::JSON::XS qw( decode_json );
 use Types::Standard qw( InstanceOf );
 use URI::FromHash qw(uri);
-use WunderCharts::Plugin::Instagram::User ();
+use WunderCharts::Plugin::Instagram::Image ();
+use WunderCharts::Plugin::Instagram::User  ();
+use WunderCharts::Plugin::Instagram::Video ();
 
 has _client => (
     is => 'lazy',
@@ -21,6 +23,19 @@ with(
     'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
 );
+
+sub _create_uri {
+    my $self  = shift;
+    my $path  = shift;
+    my $query = shift || {};
+
+    return uri(
+        scheme => 'https',
+        host   => 'api.instagram.com',
+        path   => '/v1/' . $path,
+        query  => { access_token => $self->_access_token, %{$query} },
+    );
+}
 
 sub detect_resource {
     my $self = shift;
@@ -45,6 +60,29 @@ sub detect_resource {
     die "$arg does not appear to be a valid Instagram source.";
 }
 
+sub get_media_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    my $uri;
+
+    # looks like a shortcode
+    if ( $id =~ m{[a-zA-Z]} ) {
+        $uri = $self->_create_uri( 'media/shortcode/' . $id );
+    }
+    else {
+        $uri = $self->_create_uri( 'media/' . $id );
+    }
+
+    my $raw = $self->_get_url($uri);
+    use DDP;
+    p $raw;
+
+    my $class = 'WunderCharts::Plugin::Instagram::' . ucfirst $raw->{type};
+
+    return $class->new( raw => $self->_get_url($uri) );
+}
+
 sub get_resource {
     my $self = shift;
     my $name = shift;
@@ -61,12 +99,7 @@ sub get_user_by_id {
     my $self = shift;
     my $id   = shift;
 
-    my $uri = uri(
-        scheme => 'https',
-        host   => 'api.instagram.com',
-        path   => '/v1/users/' . $id,
-        query  => { access_token => $self->_access_token }
-    );
+    my $uri = $self->_create_uri( 'users/' . $id );
 
     return WunderCharts::Plugin::Instagram::User->new(
         raw => $self->_get_url($uri) );
@@ -77,12 +110,7 @@ sub get_user_by_nick {
     my $nick = shift;
     $nick = $self->maybe_extract_id($nick);
 
-    my $uri = uri(
-        scheme => 'https',
-        host   => 'api.instagram.com',
-        path   => '/v1/users/search',
-        query  => { access_token => $self->_access_token, q => $nick, }
-    );
+    my $uri = $self->_create_uri( 'users/search', { q => $nick } );
 
     my @users = @{ $self->_get_url($uri) };
 
