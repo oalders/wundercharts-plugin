@@ -32,12 +32,7 @@ is(
 );
 
 is(
-    $plugin->url_for( 'page', 'X' ), 'https://facebook.com/X',
-    'url_for page'
-);
-
-is(
-    $plugin->url_for( 'user', 'X' ),
+    $plugin->url_for_user_by_id('X'),
     'https://facebook.com/app_scoped_user_id/X/',
     'url_for page'
 );

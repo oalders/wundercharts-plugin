@@ -38,9 +38,6 @@ sub _build__client {
         useragent_class     => 'LWP::UserAgent',
     );
 
-    if ( $ENV{WC_UA_DEBUG} ) {
-        debug_ua( $nt->ua, $ENV{WC_UA_DEBUG} );
-    }
     return $nt;
 }
 

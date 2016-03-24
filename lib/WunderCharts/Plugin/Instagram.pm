@@ -74,10 +74,7 @@ sub get_media_by_id {
         $uri = $self->_create_uri( 'media/' . $id );
     }
 
-    my $raw = $self->_get_url($uri);
-    use DDP;
-    p $raw;
-
+    my $raw   = $self->_get_url($uri);
     my $class = 'WunderCharts::Plugin::Instagram::' . ucfirst $raw->{type};
 
     return $class->new( raw => $self->_get_url($uri) );

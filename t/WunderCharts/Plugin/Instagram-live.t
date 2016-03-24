@@ -18,9 +18,6 @@ SKIP: {
     {
         my $user = $plugin->get_user_by_nick('oalders');
         ok( $user, 'got oalders user' );
-        use DDP;
-        diag np $user;
-
         ok( ( $user->followers_count > 0 ), 'has followers' );
         ok( ( $user->following_count > 0 ), 'follows accounts' );
     }
@@ -33,13 +30,14 @@ SKIP: {
     {
         my $media = $plugin->get_media_by_id('dk4enZwWvP');
         ok( $media, 'got image dk4enZwWvP by shortcode' );
-        use Path::Tiny qw(path);
-        path('foo.txt')->spew( $plugin->_user_agent->content );
     }
 
-    {
-        my $media = $plugin->get_media_by_id('BDCoNacva1f/');
-        ok( $media, 'got video dk4enZwWvP by shortcode' );
+SKIP: {
+        skip 'need to upload a video', 1;
+        {
+            my $media = $plugin->get_media_by_id('BDCoNacva1f/');
+            ok( $media, 'got video dk4enZwWvP by shortcode' );
+        }
     }
 
     like(

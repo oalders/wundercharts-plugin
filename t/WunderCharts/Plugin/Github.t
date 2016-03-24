@@ -21,7 +21,7 @@ foreach my $url (@urls) {
 }
 
 is(
-    $plugin->url_for( 'user', 'oalders' ), 'https://github.com/oalders',
+    $plugin->url_for_user('oalders'), 'https://github.com/oalders',
     'url_for user'
 );
 
