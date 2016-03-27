@@ -32,12 +32,26 @@ SKIP: {
         ok( $media, 'got image dk4enZwWvP by shortcode' );
     }
 
-SKIP: {
-        skip 'need to upload a video', 1;
-        {
-            my $media = $plugin->get_media_by_id('BDCoNacva1f/');
-            ok( $media, 'got video dk4enZwWvP by shortcode' );
-        }
+    {
+        my $image = $plugin->get_resource(
+            'https://www.instagram.com/p/dmQVviwWoQ/?taken-by=oalders');
+        ok( $image, 'got image from url with shortcode' );
+    }
+
+    {
+        my $video = $plugin->get_resource(
+            'https://www.instagram.com/p/BDWI60-wWmy/?taken-by=oalders');
+        ok( $video, 'got video from url with shortcode' );
+    }
+
+    {
+        my $media = $plugin->get_media_by_id('BDWI60-wWmy');
+        ok( $media, 'got video dk4enZwWvP by shortcode' );
+    }
+
+    {
+        my $media = $plugin->get_media_by_id('1213196376612104626_5894185');
+        ok( $media, 'got video by id' );
     }
 
     like(
