@@ -44,6 +44,14 @@ with(
     'WunderCharts::Plugin::Role::HasUserURL',
 );
 
+sub _build_name {
+    my $self = shift;
+    return
+        exists $self->_raw->{caption}->{text}
+        ? $self->_raw->{caption}->{text}
+        : undef;
+}
+
 sub _build_resource_url {
     my $self = shift;
     return $self->_raw->{link};
