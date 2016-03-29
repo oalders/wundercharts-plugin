@@ -60,6 +60,11 @@ sub detect_resource {
     die "$arg does not appear to be a valid Instagram source.";
 }
 
+sub get_image_by_id {
+    my $self = shift;
+    return $self->get_media_by_id(@_);
+}
+
 sub get_media_by_id {
     my $self = shift;
     my $id   = shift;
@@ -89,6 +94,23 @@ sub get_resource {
         return $self->get_user_by_nick( $resource[1] );
     }
     return $self->get_resource_by_id(@resource);
+}
+
+sub _get_url {
+    my $self = shift;
+    my $uri  = shift;
+    my $res  = $self->_user_agent->get($uri);
+
+    unless ( $res->code == 200 ) {
+        die sprintf 'Could not fetch %s (status code %s)', $uri, $res->code;
+    }
+
+    my $json = decode_json( $res->decoded_content );
+
+    unless ( $json->{meta}->{code} == 200 ) {
+        die np($json);
+    }
+    return $json->{data};
 }
 
 # use the id 'me' to get info about the user who is connecting
@@ -121,21 +143,9 @@ sub get_user_by_nick {
     }
 }
 
-sub _get_url {
+sub get_video_by_id {
     my $self = shift;
-    my $uri  = shift;
-    my $res  = $self->_user_agent->get($uri);
-
-    unless ( $res->code == 200 ) {
-        die sprintf 'Could not fetch %s (status code %s)', $uri, $res->code;
-    }
-
-    my $json = decode_json( $res->decoded_content );
-
-    unless ( $json->{meta}->{code} == 200 ) {
-        die np($json);
-    }
-    return $json->{data};
+    return $self->get_media_by_id(@_);
 }
 
 1;

@@ -30,10 +30,7 @@ has name => (
     is      => 'ro',
     isa     => Maybe [Str],
     lazy    => 1,
-    default => sub {
-        my $self = shift;
-        return $self->_raw->{caption};
-    },
+    builder => '_build_name',
 );
 
 with(
