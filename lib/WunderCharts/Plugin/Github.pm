@@ -104,9 +104,10 @@ sub get_resource_by_nick {
 
 sub get_user_by_nick {
     my $self = shift;
+    my $nick = shift;
 
     # XXX add some Type::Tiny checking here
-    my $nick = $self->maybe_extract_id(shift);
+    $nick = $self->maybe_extract_id($nick);
 
     my $response = $self->_client->users->get( user => $nick );
     return unless $response->success;

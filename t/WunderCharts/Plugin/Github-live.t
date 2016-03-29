@@ -4,9 +4,7 @@ use strict;
 use warnings;
 
 use Test::More;
-use Test::RequiresInternet (
-    'api.github.com' => 443,
-);
+use Test::RequiresInternet ( 'api.github.com' => 443, );
 
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw( config_for_service plugin_for_service );
@@ -40,14 +38,17 @@ SKIP: {
         ok( $repo, 'got oalders user' );
     }
 
-    my @urls = (
-        'git@github.com:oalders/http-browserdetect.git',
-        'https://github.com/oalders/',
+    my %urls = (
+        'git@github.com:oalders/http-browserdetect.git', =>
+            [ 'repo', 'oalders', 'http-browserdetect' ],
+        'https://github.com/oalders/' => [ 'user', 'oalders', ],
     );
 
-    foreach my $url (@urls) {
-        my $resource = $plugin->detect_resource($url);
-        ok( $resource, 'got resource via ' . $url );
+    foreach my $url ( keys %urls ) {
+        my $detected = [ $plugin->detect_resource($url) ];
+        is_deeply( $detected, $urls{$url}, "detected $url" );
+        my $resource = $plugin->get_resource($url);
+        ok( $resource, "get_resource for $url" );
     }
 }
 
