@@ -7,7 +7,7 @@ use Types::Common::Numeric qw( PositiveOrZeroInt );
 use Types::Common::String qw( NonEmptyStr );
 use Types::Standard qw( ArrayRef HashRef Str);
 
-has checkins => (
+has checkin_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
@@ -21,7 +21,7 @@ has id => (
     default => sub { shift->_raw->{id} },
 );
 
-has likes => (
+has likes_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
@@ -76,7 +76,10 @@ sub _build_login {
 }
 
 sub _build_trackables {
-    [ 'checkins', 'likes', 'talking_about_count', 'were_here_count', ];
+    [
+        'checkin_count', 'likes_count', 'talking_about_count',
+        'were_here_count',
+    ];
 }
 
 1;

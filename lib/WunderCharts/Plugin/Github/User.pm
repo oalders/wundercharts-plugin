@@ -6,14 +6,14 @@ use MooX::StrictConstructor;
 use Types::Common::Numeric qw( PositiveOrZeroInt );
 use Types::Standard qw( ArrayRef HashRef Str);
 
-has followers => (
+has followers_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
     default => sub { shift->_raw->{followers} },
 );
 
-has following => (
+has following_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
@@ -48,14 +48,14 @@ has nick => (
     default => sub { shift->_raw->{login} },
 );
 
-has public_gists => (
+has public_gist_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
     default => sub { shift->_raw->{public_gists} },
 );
 
-has public_repos => (
+has public_repo_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
@@ -67,7 +67,10 @@ with 'WunderCharts::Plugin::Role::HasRawData',
     'WunderCharts::Plugin::Role::HasTrackableData';
 
 sub _build_trackables {
-    [ 'followers', 'following', 'public_gists', 'public_repos', ];
+    [
+        'followers_count', 'following_count', 'public_gist_count',
+        'public_repo_count',
+    ];
 }
 
 sub _build_resource_url {
