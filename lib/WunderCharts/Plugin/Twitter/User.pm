@@ -18,7 +18,7 @@ has following_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_raw->{following_count} },
+    default => sub { shift->_raw->{friends_count} },
 );
 
 has id => (
