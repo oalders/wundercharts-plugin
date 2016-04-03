@@ -14,7 +14,7 @@ is_deeply(
     $user->trackable_data,
     {
         followers_count => 869,
-        friends_count   => 1778,
+        following_count => 1778,
         listed_count    => 67,
         statuses_count  => 2035,
     },

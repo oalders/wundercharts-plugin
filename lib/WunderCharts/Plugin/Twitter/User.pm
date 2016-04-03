@@ -14,11 +14,11 @@ has followers_count => (
     default => sub { shift->_raw->{followers_count} },
 );
 
-has friends_count => (
+has following_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_raw->{friends_count} },
+    default => sub { shift->_raw->{following_count} },
 );
 
 has id => (
@@ -77,7 +77,10 @@ sub _build_resource_url {
 }
 
 sub _build_trackables {
-    [ 'followers_count', 'friends_count', 'listed_count', 'statuses_count', ];
+    [
+        'followers_count', 'following_count', 'listed_count',
+        'statuses_count',
+    ];
 }
 
 sub nick {
