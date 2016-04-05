@@ -44,6 +44,12 @@ sub plugin_for_service {
     my $service      = shift;
     my $plugin_class = plugin_class_for_service($service);
     load($plugin_class);
+
+    # Some classes don't require any kind of auth
+    unless ( $plugin_class->can('_access_token') ) {
+        return $plugin_class->new;
+    }
+
     my $config = config_for_service($service);
     return $plugin_class->new(
         access_token    => $config->{access_token},
