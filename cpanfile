@@ -16,6 +16,7 @@ requires "Types::Standard" => "0";
 requires "Types::URI" => "0";
 requires "URI" => "0";
 requires "URI::FromHash" => "0";
+requires "WebService::HackerNews" => "0";
 requires "WWW::Mechanize" => "0";
 requires "WWW::Spotify" => "0";
 requires "perl" => "v5.10.0";
