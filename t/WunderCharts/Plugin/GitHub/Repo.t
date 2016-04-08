@@ -9,7 +9,7 @@ use lib 't/lib';
 use Test::WunderCharts::Plugin qw( resource_for_service );
 
 my $repo = resource_for_service(
-    'Github', 'Repo',
+    'GitHub', 'Repo',
     'oalders-http-browserdetect.json'
 );
 

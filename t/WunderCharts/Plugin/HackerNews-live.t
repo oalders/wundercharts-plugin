@@ -9,7 +9,7 @@ use Test::RequiresInternet ( 'api.github.com' => 443, );
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw( plugin_for_service );
 
-my $plugin = plugin_for_service('Hackernews');
+my $plugin = plugin_for_service('HackerNews');
 
 {
     my $user = $plugin->get_user_by_id('oalders');

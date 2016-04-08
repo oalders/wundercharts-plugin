@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::Hackernews::User;
+package WunderCharts::Plugin::HackerNews::User;
 
 use Moo;
 use MooX::StrictConstructor;

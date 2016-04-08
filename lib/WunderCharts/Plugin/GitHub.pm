@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::Github;
+package WunderCharts::Plugin::GitHub;
 
 use Moo;
 use MooX::StrictConstructor;
@@ -6,8 +6,8 @@ use MooX::StrictConstructor;
 use Pithub;
 use Types::Standard qw( InstanceOf );
 use URI;
-use WunderCharts::Plugin::Github::Repo;
-use WunderCharts::Plugin::Github::User;
+use WunderCharts::Plugin::GitHub::Repo;
+use WunderCharts::Plugin::GitHub::User;
 
 has _client => (
     is      => 'lazy',
@@ -71,7 +71,7 @@ sub get_repo {
     my $response = $self->_client->repos->get( user => $user, repo => $repo );
     return unless $response->success;
 
-    return WunderCharts::Plugin::Github::Repo->new(
+    return WunderCharts::Plugin::GitHub::Repo->new(
         raw => $response->content );
 }
 
@@ -112,7 +112,7 @@ sub get_user_by_nick {
     my $response = $self->_client->users->get( user => $nick );
     return unless $response->success;
 
-    return WunderCharts::Plugin::Github::User->new(
+    return WunderCharts::Plugin::GitHub::User->new(
         raw => $response->content );
 }
 

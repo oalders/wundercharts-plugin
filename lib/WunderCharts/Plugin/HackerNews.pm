@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::Hackernews;
+package WunderCharts::Plugin::HackerNews;
 
 use Moo;
 use MooX::StrictConstructor;
@@ -7,9 +7,9 @@ use Types::Standard qw( InstanceOf );
 use URI;
 use URI::QueryParam;
 use WebService::HackerNews;
-use WunderCharts::Plugin::Hackernews::Comment;
-use WunderCharts::Plugin::Hackernews::Story;
-use WunderCharts::Plugin::Hackernews::User;
+use WunderCharts::Plugin::HackerNews::Comment;
+use WunderCharts::Plugin::HackerNews::Story;
+use WunderCharts::Plugin::HackerNews::User;
 
 has _client => (
     is  => 'lazy',
@@ -33,7 +33,7 @@ sub get_item_by_id {
     my $id   = shift;
 
     my $item  = $self->_client->item($id);
-    my $class = 'WunderCharts::Plugin::Hackernews::' . ucfirst( $item->type );
+    my $class = 'WunderCharts::Plugin::HackerNews::' . ucfirst( $item->type );
     return $class->new( item => $self->_client->item($id) );
 }
 
@@ -41,7 +41,7 @@ sub get_user_by_id {
     my $self = shift;
     my $id   = shift;
 
-    return WunderCharts::Plugin::Hackernews::User->new(
+    return WunderCharts::Plugin::HackerNews::User->new(
         user => $self->_client->user($id) );
 }
 

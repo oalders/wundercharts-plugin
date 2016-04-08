@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::Role::Hackernews::Item;
+package WunderCharts::Plugin::Role::HackerNews::Item;
 
 use Moo::Role;
 

@@ -6,7 +6,7 @@ use Test::Most;
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw( plugin_for_service);
 
-my $plugin = plugin_for_service('Github');
+my $plugin = plugin_for_service('GitHub');
 
 my @urls = (
     'https://github.com/oalders',

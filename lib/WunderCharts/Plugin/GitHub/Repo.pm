@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::Github::User;
+package WunderCharts::Plugin::GitHub::Repo;
 
 use Moo;
 use MooX::StrictConstructor;
@@ -6,18 +6,18 @@ use MooX::StrictConstructor;
 use Types::Common::Numeric qw( PositiveOrZeroInt );
 use Types::Standard qw( ArrayRef HashRef Str);
 
-has followers_count => (
+has forks_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_raw->{followers} },
+    default => sub { shift->_raw->{forks_count} },
 );
 
-has following_count => (
+has open_issues_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_raw->{following} },
+    default => sub { shift->_raw->{open_issues_count} },
 );
 
 has id => (
@@ -27,11 +27,11 @@ has id => (
     default => sub { shift->_raw->{id} },
 );
 
-has login => (
+has stargazers_count => (
     is      => 'ro',
-    isa     => Str,
+    isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_raw->{login} },
+    default => sub { shift->_raw->{stargazers_count} },
 );
 
 has name => (
@@ -45,31 +45,26 @@ has nick => (
     is      => 'ro',
     isa     => Str,
     lazy    => 1,
-    default => sub { shift->_raw->{login} },
+    default => sub { shift->_raw->{full_name} },
 );
 
-has public_gist_count => (
+has subscribers_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_raw->{public_gists} },
+    default => sub { shift->_raw->{subscribers_count} },
 );
 
-has public_repo_count => (
-    is      => 'ro',
-    isa     => PositiveOrZeroInt,
-    lazy    => 1,
-    default => sub { shift->_raw->{public_repos} },
-);
-
-with 'WunderCharts::Plugin::Role::HasRawData',
+with(
+    'WunderCharts::Plugin::Role::HasRawData',
     'WunderCharts::Plugin::Role::HasResourceURL',
-    'WunderCharts::Plugin::Role::HasTrackableData';
+    'WunderCharts::Plugin::Role::HasTrackableData',
+);
 
 sub _build_trackables {
     [
-        'followers_count', 'following_count', 'public_gist_count',
-        'public_repo_count',
+        'forks_count', 'open_issues_count', 'stargazers_count',
+        'subscribers_count',
     ];
 }
 

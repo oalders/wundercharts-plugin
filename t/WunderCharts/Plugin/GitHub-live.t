@@ -9,12 +9,12 @@ use Test::RequiresInternet ( 'api.github.com' => 443, );
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw( config_for_service plugin_for_service );
 
-my $config = config_for_service('Github');
+my $config = config_for_service('GitHub');
 
 SKIP: {
     skip 'No live config', 1 unless $config->{live};
 
-    my $plugin = plugin_for_service('Github');
+    my $plugin = plugin_for_service('GitHub');
     {
         my $user = $plugin->get_user_by_nick('oalders');
         ok( $user, 'got oalders user' );
