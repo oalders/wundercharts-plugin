@@ -48,14 +48,14 @@ has nick => (
     default => sub { shift->_raw->{login} },
 );
 
-has public_gist_count => (
+has public_gists_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
     default => sub { shift->_raw->{public_gists} },
 );
 
-has public_repo_count => (
+has public_repos_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
@@ -68,8 +68,8 @@ with 'WunderCharts::Plugin::Role::HasRawData',
 
 sub _build_trackables {
     [
-        'followers_count', 'following_count', 'public_gist_count',
-        'public_repo_count',
+        'followers_count', 'following_count', 'public_gists_count',
+        'public_repos_count',
     ];
 }
 

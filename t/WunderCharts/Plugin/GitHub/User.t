@@ -13,10 +13,10 @@ my $user = user_object_for_service( 'GitHub', 'oalders.pl' );
 is_deeply(
     $user->trackable_data,
     {
-        followers_count   => 96,
-        following_count   => 94,
-        public_gist_count => 58,
-        public_repo_count => 191,
+        followers_count    => 96,
+        following_count    => 94,
+        public_gists_count => 58,
+        public_repos_count => 191,
     },
     'trackable_data'
 );
