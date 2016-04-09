@@ -7,22 +7,31 @@ use Types::Common::String qw( NonEmptyStr );
 use Types::Standard qw( InstanceOf );
 
 has id => (
-    is       => 'ro',
-    isa      => NonEmptyStr,
-    lazy => 1,
+    is      => 'ro',
+    isa     => NonEmptyStr,
+    lazy    => 1,
     default => sub { shift->_item->id },
 );
 
+# Submissions have a title
+# Comments have text
+has name => (
+    is      => 'ro',
+    isa     => NonEmptyStr,
+    lazy    => 1,
+    default => sub { $_[0]->_item->title || $_[0]->_item->text },
+);
+
 has score => (
-    is       => 'ro',
-    isa      => PositiveOrZeroInt,
-    lazy => 1,
+    is      => 'ro',
+    isa     => PositiveOrZeroInt,
+    lazy    => 1,
     default => sub { shift->_item->score || 0 },
 );
 
 has _item => (
-    is => 'ro',
-    isa => InstanceOf['WebService::HackerNews::Item'],
+    is       => 'ro',
+    isa      => InstanceOf ['WebService::HackerNews::Item'],
     init_arg => 'item',
 );
 

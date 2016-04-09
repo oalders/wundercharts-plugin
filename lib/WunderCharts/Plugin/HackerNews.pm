@@ -12,12 +12,13 @@ use WunderCharts::Plugin::HackerNews::Story;
 use WunderCharts::Plugin::HackerNews::User;
 
 has _client => (
-    is  => 'lazy',
+    is => 'lazy',
     isa => InstanceOf ['WebService::HackerNews'],
 );
 
 with(
     'WunderCharts::Plugin::Role::HasIDFilter',
+    'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasServiceURL',
 );
 
@@ -45,6 +46,14 @@ sub get_user_by_id {
         user => $self->_client->user($id) );
 }
 
+sub get_comment_by_id {
+    return shift->get_item_by_id(@_);
+}
+
+sub get_story_by_id {
+    return shift->get_item_by_id(@_);
+}
+
 # https://news.ycombinator.com/user?id=oalders
 # https://news.ycombinator.com/item?id=11424372
 
@@ -66,6 +75,10 @@ sub detect_resource {
 
     if ( $uri->path && $uri->path eq '/item' ) {
         return ( 'item', $uri->query_param('id') );
+    }
+
+    if ( $uri->path && $uri->path eq '/vote' ) {
+        return ( 'item', $uri->query_param('for') );
     }
     return;
 }
