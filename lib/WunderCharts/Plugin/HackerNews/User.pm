@@ -41,4 +41,8 @@ sub _build_resource_url {
     return sprintf 'https://news.ycombinator.com/user?id=%s', $self->id;
 }
 
+sub name {
+    return shift->id;
+}
+
 1;
