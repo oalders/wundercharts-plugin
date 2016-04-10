@@ -53,4 +53,13 @@ my $plugin = plugin_for_service('HackerNews');
     ok( $comment, 'story via get_resource' );
 }
 
+{
+    my $comment
+        = $plugin->get_resource(
+        'https://news.ycombinator.com/vote?for=11461044&dir=up&auth=dfda5fbc9d8fc038c5c1575812a67b2278a0792b&goto=item%3Fid%3D11458628'
+        );
+    ok( $comment, 'comment via upvote link' );
+    unlike( $comment->name, qr{&\#x27;}, 'entities are decoded' );
+}
+
 done_testing();

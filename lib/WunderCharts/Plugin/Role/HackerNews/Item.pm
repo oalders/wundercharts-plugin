@@ -2,6 +2,7 @@ package WunderCharts::Plugin::Role::HackerNews::Item;
 
 use Moo::Role;
 
+use HTML::Entities qw( decode_entities );
 use Types::Common::Numeric qw( PositiveOrZeroInt );
 use Types::Common::String qw( NonEmptyStr );
 use Types::Standard qw( InstanceOf );
@@ -16,10 +17,11 @@ has id => (
 # Submissions have a title
 # Comments have text
 has name => (
-    is      => 'ro',
-    isa     => NonEmptyStr,
-    lazy    => 1,
-    default => sub { $_[0]->_item->title || $_[0]->_item->text },
+    is   => 'ro',
+    isa  => NonEmptyStr,
+    lazy => 1,
+    default =>
+        sub { decode_entities( $_[0]->_item->title || $_[0]->_item->text ) },
 );
 
 has score => (
