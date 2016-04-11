@@ -9,6 +9,8 @@ use URI::QueryParam;
 use WebService::HackerNews;
 use WunderCharts::Plugin::HackerNews::Comment;
 use WunderCharts::Plugin::HackerNews::Story;
+use WunderCharts::Plugin::HackerNews::Poll;
+use WunderCharts::Plugin::HackerNews::Pollopt;
 use WunderCharts::Plugin::HackerNews::User;
 
 has _client => (
@@ -35,7 +37,24 @@ sub get_item_by_id {
 
     my $item  = $self->_client->item($id);
     my $class = 'WunderCharts::Plugin::HackerNews::' . ucfirst( $item->type );
+
     return $class->new( item => $self->_client->item($id) );
+}
+
+sub get_comment_by_id {
+    return shift->get_item_by_id(@_);
+}
+
+sub get_poll_by_id {
+    return shift->get_item_by_id(@_);
+}
+
+sub get_pollopt_by_id {
+    return shift->get_item_by_id(@_);
+}
+
+sub get_story_by_id {
+    return shift->get_item_by_id(@_);
 }
 
 sub get_user_by_id {
@@ -44,14 +63,6 @@ sub get_user_by_id {
 
     return WunderCharts::Plugin::HackerNews::User->new(
         user => $self->_client->user($id) );
-}
-
-sub get_comment_by_id {
-    return shift->get_item_by_id(@_);
-}
-
-sub get_story_by_id {
-    return shift->get_item_by_id(@_);
 }
 
 # https://news.ycombinator.com/user?id=oalders

@@ -14,6 +14,13 @@ has id => (
     default => sub { shift->_item->id },
 );
 
+has kids_count => (
+    is      => 'ro',
+    isa     => PositiveOrZeroInt,
+    lazy    => 1,
+    default => sub { scalar @{ shift->_item->kids } },
+);
+
 # Submissions have a title
 # Comments have text
 has name => (

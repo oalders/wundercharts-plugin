@@ -1,4 +1,4 @@
-package WunderCharts::Plugin::HackerNews::Story;
+package WunderCharts::Plugin::HackerNews::Pollopt;
 
 use Moo;
 use MooX::StrictConstructor;
@@ -6,7 +6,7 @@ use MooX::StrictConstructor;
 with 'WunderCharts::Plugin::Role::HackerNews::Item';
 
 sub _build_trackables {
-    [ 'kids_count', 'score' ];
+    ['score'];
 }
 
 1;

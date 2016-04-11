@@ -62,4 +62,24 @@ my $plugin = plugin_for_service('HackerNews');
     unlike( $comment->name, qr{&\#x27;}, 'entities are decoded' );
 }
 
+{
+    my $comment = $plugin->get_resource(
+        'https://news.ycombinator.com/item?id=10030854');
+    ok( $comment, 'comment via item URL' );
+}
+
+{
+    my $poll = $plugin->get_resource(
+        'https://news.ycombinator.com/item?id=7059569');
+    ok( $poll, 'poll via item URL' );
+}
+
+{
+    my $poll = $plugin->get_resource(
+        'https://news.ycombinator.com/vote?for=7059571&dir=up&auth=6f77c6f1a92f9fef5fce72818ac34ae82bdce081&goto=item%3Fid%3D7059569
+'
+    );
+    ok( $poll, 'pollopt via vote URL' );
+}
+
 done_testing();
