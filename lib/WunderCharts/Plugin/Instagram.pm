@@ -11,7 +11,7 @@ use WunderCharts::Plugin::Instagram::User  ();
 use WunderCharts::Plugin::Instagram::Video ();
 
 has _client => (
-    is => 'lazy',
+    is  => 'lazy',
     isa => InstanceOf ['API::Instagram'],
 );
 

@@ -19,6 +19,9 @@ is_deeply(
     'trackable_data'
 );
 
-is( $image->resource_url, 'https://www.instagram.com/p/dk4enZwWvP/', 'resource_url' );
+is(
+    $image->resource_url, 'https://www.instagram.com/p/dk4enZwWvP/',
+    'resource_url'
+);
 
 done_testing();

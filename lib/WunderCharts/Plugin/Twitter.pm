@@ -9,7 +9,7 @@ use WunderCharts::Plugin::Twitter::Status;
 use WunderCharts::Plugin::Twitter::User;
 
 has _client => (
-    is => 'lazy',
+    is  => 'lazy',
     isa => InstanceOf ['Net::Twitter'],
 );
 

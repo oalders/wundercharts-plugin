@@ -6,7 +6,7 @@ use Test::Most;
 use lib 't/lib';
 use Test::WunderCharts::Plugin qw(plugin_for_service);
 
-my $plugin = plugin_for_service( 'HackerNews' );
+my $plugin = plugin_for_service('HackerNews');
 
 my %resources = (
     'https://news.ycombinator.com/user?id=oalders'  => [ 'user', 'oalders', ],
@@ -14,7 +14,7 @@ my %resources = (
 );
 
 foreach my $resource ( keys %resources ) {
-    my @detected = $plugin->detect_resource( $resource );
+    my @detected = $plugin->detect_resource($resource);
     is_deeply( \@detected, $resources{$resource}, $resource );
 }
 

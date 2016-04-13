@@ -5,6 +5,10 @@ use MooX::StrictConstructor;
 
 with 'WunderCharts::Plugin::Role::HackerNews::Item';
 
+sub belongs_to {
+    ['Poll'];
+}
+
 sub _build_trackables {
     ['score'];
 }

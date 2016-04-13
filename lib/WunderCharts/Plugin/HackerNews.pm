@@ -14,7 +14,7 @@ use WunderCharts::Plugin::HackerNews::Pollopt;
 use WunderCharts::Plugin::HackerNews::User;
 
 has _client => (
-    is => 'lazy',
+    is  => 'lazy',
     isa => InstanceOf ['WebService::HackerNews'],
 );
 

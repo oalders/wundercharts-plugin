@@ -13,7 +13,7 @@ use WunderCharts::Plugin::Spotify::User   ();
 use WWW::Spotify                          ();
 
 has _client => (
-    is => 'lazy',
+    is  => 'lazy',
     isa => InstanceOf ['WWW::Spotify'],
 );
 

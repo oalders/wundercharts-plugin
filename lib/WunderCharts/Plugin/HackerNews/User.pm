@@ -41,6 +41,11 @@ sub _build_resource_url {
     return sprintf 'https://news.ycombinator.com/user?id=%s', $self->id;
 }
 
+sub has_many {
+    my $self = shift;
+    return [ 'Comment', 'Poll', 'Story' ];
+}
+
 sub name {
     return shift->id;
 }
