@@ -1,6 +1,8 @@
+*.bak
 .build
 config.pl
 cpanfile.snapshot
+.DS_Store
 local
 *.swp
 .tidyall.d
