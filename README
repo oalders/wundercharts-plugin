@@ -8,6 +8,16 @@ DESCRIPTION
     This package contains the plugins which WunderCharts uses to connect to
     various 3rd party APIs.
 
+CONTRIBUTING
+    If you'd like to use a Vagrant VM you will have a full development
+    environment at your disposal.
+
+        vagrant up
+        vagrant ssh
+
+        # run tests
+        prove -lvr t
+
 AUTHOR
     Olaf Alders <olaf@wundercounter.com>
 
