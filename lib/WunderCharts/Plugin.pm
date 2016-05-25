@@ -24,4 +24,7 @@ at your disposal.
     # run tests
     prove -lvr t
 
+A friendly synopsis of the terms under which this software is licensed can be
+found here: L<http://choosealicense.com/licenses/gpl-3.0/>
+
 =cut
