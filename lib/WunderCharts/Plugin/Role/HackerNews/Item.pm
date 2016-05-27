@@ -23,12 +23,18 @@ has kids_count => (
 
 # Submissions have a title
 # Comments have text
+# 0 is a valid title.  See https://news.ycombinator.com/item?id=7059570
 has name => (
-    is   => 'ro',
-    isa  => NonEmptyStr,
-    lazy => 1,
-    default =>
-        sub { decode_entities( $_[0]->_item->title || $_[0]->_item->text ) },
+    is      => 'ro',
+    isa     => NonEmptyStr,
+    lazy    => 1,
+    default => sub {
+        decode_entities(
+            defined $_[0]->_item->title
+            ? $_[0]->_item->title
+            : $_[0]->_item->text
+        );
+    },
 );
 
 has score => (
