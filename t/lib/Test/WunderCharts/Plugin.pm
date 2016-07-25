@@ -26,7 +26,7 @@ sub config {
 }
 
 sub config_for_service {
-    my $service = shift;
+    my $service = lc shift;
     my $config  = config();
     if ($config) {
         return $config->{$service};
