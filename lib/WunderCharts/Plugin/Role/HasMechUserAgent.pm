@@ -2,9 +2,9 @@ package WunderCharts::Plugin::Role::HasMechUserAgent;
 
 use Moo::Role;
 
-use LWP::ConsoleLogger::Easy qw( debug_ua );
-use WWW::Mechanize;
+use Module::Load qw( load );
 use Types::Standard qw( InstanceOf );
+use WWW::Mechanize ();
 
 has _user_agent => (
     is      => 'ro',
@@ -19,7 +19,8 @@ sub _build_user_agent {
 
     my $ua = WWW::Mechanize->new( autocheck => 0, timeout => 10 );
     if ( $ENV{WC_UA_DEBUG} ) {
-        debug_ua( $ua, $ENV{WC_UA_DEBUG} );
+        load('LWP::ConsoleLogger::Easy');
+        LWP::ConsoleLogger::Easy::debug_ua( $ua, $ENV{WC_UA_DEBUG} );
     }
     return $ua;
 }
