@@ -15,20 +15,21 @@ my $config = config_for_service('Twitter');
 SKIP: {
     skip 'No live config', 3 unless $config->{live};
 
-    my $plugin = plugin_for_service('Twitter');
+    my $username = 'olafalders';
+    my $plugin   = plugin_for_service('Twitter');
     {
-        my $user = $plugin->get_user_by_nick('wundercounter');
-        ok( $user, 'got wundercounter user' );
+        my $user = $plugin->get_user_by_nick($username);
+        ok( $user, "got $username user" );
     }
 
     {
         my $user = $plugin->get_user_by_id(29385636);
-        ok( $user, 'got wundercounter user' );
+        ok( $user, "got $username user by id" );
     }
 
     {
         my $status = $plugin->get_status_by_id(570454045099307008);
-        ok( $status, 'got wundercounter status' );
+        ok( $status, "got $username status" );
     }
 
     {
@@ -42,21 +43,21 @@ SKIP: {
 
     {
         ok(
-            $plugin->get_resource('https://twitter.com/wundercounter'),
+            $plugin->get_resource("https://twitter.com/$username"),
             'get_resource via user url'
         );
     }
 
     {
         ok(
-            $plugin->get_resource('wundercounter'),
+            $plugin->get_resource($username),
             'get_resource via nick'
         );
     }
 
     {
         ok(
-            $plugin->get_resource('@wundercounter'),
+            $plugin->get_resource( '@' . $username ),
             'get_resource via @nick'
         );
     }
