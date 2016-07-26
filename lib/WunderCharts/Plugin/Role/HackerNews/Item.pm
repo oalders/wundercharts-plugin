@@ -30,7 +30,7 @@ has name => (
     lazy    => 1,
     default => sub {
         decode_entities(
-            defined $_[0]->_item->title
+              $_[0]->_item->title
             ? $_[0]->_item->title
             : $_[0]->_item->text
         );
