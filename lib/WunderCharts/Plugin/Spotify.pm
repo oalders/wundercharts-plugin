@@ -7,6 +7,7 @@ use Cpanel::JSON::XS qw( decode_json );
 use Data::Printer;
 use Types::Standard qw( InstanceOf );
 use URI                                   ();
+use WunderCharts::Plugin::Spotify::Album ();
 use WunderCharts::Plugin::Spotify::Artist ();
 use WunderCharts::Plugin::Spotify::Track  ();
 use WunderCharts::Plugin::Spotify::User   ();
@@ -70,14 +71,16 @@ sub detect_resource {
 
     return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
 
-    if ( $arg =~ m{\Aspotify:(artist|track|user):([0-9a-zA-Z]*)\z} ) {
+    if ( $arg =~ m{\Aspotify:(album|artist|track|user):([0-9a-zA-Z]*)\z} ) {
         return ( $1, $2 );
     }
 
+    # https://open.spotify.com/album/7kMnBrFZfdqSWQBGW0wAyz
+    # https://open.spotify.com/artist/11zHPjHnZN0ACA50rSnTcy
     # https://open.spotify.com/user/oalders
     # https://play.spotify.com/user/oalders
 
-    if ( $arg =~ m{\Ahttp} ) {
+    if ( $arg =~ m{\Ahttp}i ) {
         my $uri      = URI->new($arg);
         my @segments = $uri->path_segments;
         return ( $segments[1], $segments[2] );
@@ -99,6 +102,14 @@ sub get_resource {
 # use the id 'me' to get info about the user who is connecting
 sub get_user_by_id {
     return shift->get_user_by_nick(@_);
+}
+
+sub get_album_by_id {
+    my $self = shift;
+    my $id   = shift;
+
+    return WunderCharts::Plugin::Spotify::Album->new(
+        raw => $self->_handle_response( 'album', $id ) );
 }
 
 sub get_artist_by_id {

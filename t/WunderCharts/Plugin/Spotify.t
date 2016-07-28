@@ -10,6 +10,8 @@ use Test::WunderCharts::Plugin qw( plugin_for_service);
 my $plugin = plugin_for_service('Spotify');
 
 my %resources = (
+    'https://open.spotify.com/album/0sNOF9WDwhWunNAHPD3Baj' =>
+        [ 'album', '0sNOF9WDwhWunNAHPD3Baj' ],
     'https://open.spotify.com/user/oalders' => [ 'user',   'oalders' ],
     'https://play.spotify.com/user/oalders' => [ 'user',   'oalders' ],
     '@oalders'                              => [ 'user',   'oalders' ],
