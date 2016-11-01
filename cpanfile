@@ -25,6 +25,7 @@ requires "URI::QueryParam" => "0";
 requires "WWW::Mechanize" => "0";
 requires "WWW::Spotify" => "0";
 requires "WebService::HackerNews" => "0";
+requires "WebService::HealthGraph" => "0.000004";
 requires "perl" => "v5.10.0";
 requires "strict" => "0";
 requires "warnings" => "0";

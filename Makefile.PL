@@ -44,6 +44,7 @@ my %WriteMakefileArgs = (
     "WWW::Mechanize" => 0,
     "WWW::Spotify" => 0,
     "WebService::HackerNews" => 0,
+    "WebService::HealthGraph" => "0.000004",
     "strict" => 0,
     "warnings" => 0
   },
@@ -59,7 +60,7 @@ my %WriteMakefileArgs = (
   },
   "VERSION" => "0.000001",
   "test" => {
-    "TESTS" => "t/*.t t/WunderCharts/Plugin/*.t t/WunderCharts/Plugin/Facebook/*.t t/WunderCharts/Plugin/GitHub/*.t t/WunderCharts/Plugin/Instagram/*.t t/WunderCharts/Plugin/Spotify/*.t t/WunderCharts/Plugin/Twitter/*.t"
+    "TESTS" => "t/*.t t/WunderCharts/Plugin/*.t t/WunderCharts/Plugin/Facebook/*.t t/WunderCharts/Plugin/GitHub/*.t t/WunderCharts/Plugin/Instagram/*.t t/WunderCharts/Plugin/Runkeeper/*.t t/WunderCharts/Plugin/Spotify/*.t t/WunderCharts/Plugin/Twitter/*.t"
   }
 );
 
@@ -98,6 +99,7 @@ my %FallbackPrereqs = (
   "WWW::Mechanize" => 0,
   "WWW::Spotify" => 0,
   "WebService::HackerNews" => 0,
+  "WebService::HealthGraph" => "0.000004",
   "feature" => 0,
   "lib" => 0,
   "strict" => 0,

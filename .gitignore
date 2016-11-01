@@ -3,8 +3,10 @@
 config.pl
 cpanfile.snapshot
 .DS_Store
+Install
 local
 *.swp
 .tidyall.d
+tidyall.ERR
 .vagrant
 /WunderCharts-Plugin*
