@@ -9,10 +9,13 @@ use Module::Load qw( load );
 use Path::Tiny qw( path );
 use Sub::Exporter -setup => {
     exports => [
-        'config_for_service', 'plugin_for_service', 'resource_for_service',
-        'user_object_for_service'
+        'config_for_service',   'is_live',       'plugin_for_service',
+        'resource_for_service', 'trackables_ok', 'user_object_for_service'
     ]
 };
+use Test::Fatal qw( lives_ok );
+
+## no critic (BuiltinFunctions::ProhibitStringyEval)
 
 sub config {
     state $config;
@@ -38,6 +41,11 @@ sub config_for_service {
         consumer_secret     => 'baz',
         live                => 0,
     };
+}
+
+sub is_live {
+    my $service = shift;
+    return config_for_service($service)->{live};
 }
 
 sub plugin_for_service {
@@ -83,7 +91,9 @@ sub resource_for_service {
     my $class = plugin_class_for_service($service) . "::$resource";
     load($class);
 
-    return $class->new( raw => $data );
+    my $obj = $class->new( raw => $data );
+    trackables_ok($obj);
+    return $obj;
 }
 
 sub user_object_for_service {
@@ -114,4 +124,10 @@ sub plugin_class_for_service {
     return 'WunderCharts::Plugin::' . $service;
 }
 
+sub trackables_ok {
+    my $obj = shift;
+    foreach my $trackable ( @{ $obj->trackables } ) {
+        lives_ok { $obj->$trackable } "$trackable: " . ($obj->$trackable || q{});
+    }
+}
 1;

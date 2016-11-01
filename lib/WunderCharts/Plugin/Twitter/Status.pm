@@ -11,7 +11,7 @@ has favorite_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
-    default => sub { shift->_raw->{favorite_count} },
+    builder => '_build_favorite_count',
 );
 
 has id => (
@@ -55,6 +55,14 @@ with(
     'WunderCharts::Plugin::Role::HasTrackableData',
     'WunderCharts::Plugin::Role::Twitter::HasServiceURL',
 );
+
+sub _build_favorite_count {
+    my $self = shift;
+    return
+          $self->_raw->{favorite_count}       ? $self->_raw->{favorite_count}
+        : $self->_raw->{favorited} eq 'false' ? 0
+        :                                       undef;
+}
 
 sub _build_resource_url {
     my $self = shift;

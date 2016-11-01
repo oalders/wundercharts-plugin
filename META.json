@@ -67,6 +67,7 @@
             "WWW::Mechanize" : "0",
             "WWW::Spotify" : "0",
             "WebService::HackerNews" : "0",
+            "WebService::HealthGraph" : "0.000004",
             "perl" : "v5.10.0",
             "strict" : "0",
             "warnings" : "0"
@@ -74,6 +75,7 @@
       },
       "test" : {
          "requires" : {
+            "DateTime" : "0",
             "Path::Tiny" : "0",
             "Sub::Exporter" : "0",
             "Test::Fatal" : "0",
