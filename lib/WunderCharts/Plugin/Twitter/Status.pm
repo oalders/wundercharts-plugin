@@ -59,9 +59,9 @@ with(
 sub _build_favorite_count {
     my $self = shift;
     return
-          $self->_raw->{favorite_count}       ? $self->_raw->{favorite_count}
-        : $self->_raw->{favorited} eq 'false' ? 0
-        :                                       undef;
+          $self->_raw->{favorite_count} ? $self->_raw->{favorite_count}
+        : !$self->_raw->{favorited}     ? 0
+        :                                 undef;
 }
 
 sub _build_resource_url {
