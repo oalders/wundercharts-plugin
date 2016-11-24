@@ -31,7 +31,7 @@ with(
 );
 
 sub _build_trackables {
-    return [ sort @floats, 'timestamp' ];
+    return \@floats;
 }
 
 1;
