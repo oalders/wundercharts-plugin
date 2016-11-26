@@ -137,7 +137,7 @@ sub _get_metadata_summary {
             ->get($uri)->as_hashref;
     }
     catch {
-        die "Cannot get metadata summary for $type";
+        die "Cannot get metadata summary for $type: $_";
     };
 
     return $summary;
