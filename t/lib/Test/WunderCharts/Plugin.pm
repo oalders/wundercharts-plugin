@@ -66,6 +66,9 @@ sub plugin_for_service {
         $plugin_class->can('_access_token_secret')
         ? ( access_token_secret => $config->{access_token_secret} )
         : (),
+        $plugin_class->can('_refresh_token')
+        ? ( refresh_token => $config->{refresh_token} )
+        : (),
     );
 }
 
@@ -127,7 +130,8 @@ sub plugin_class_for_service {
 sub trackables_ok {
     my $obj = shift;
     foreach my $trackable ( @{ $obj->trackables } ) {
-        lives_ok { $obj->$trackable } "$trackable: " . ($obj->$trackable || q{});
+        lives_ok { $obj->$trackable }
+        "$trackable: " . ( $obj->$trackable || q{} );
     }
 }
 1;

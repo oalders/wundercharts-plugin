@@ -4,8 +4,9 @@ use Moo;
 use MooX::StrictConstructor;
 
 use Types::Standard qw( InstanceOf );
-use WebService::Reddit ();
-use WunderCharts::Plugin::Reddit::User  ();
+use WebService::Reddit                      ();
+use WunderCharts::Plugin::Reddit::Subreddit ();
+use WunderCharts::Plugin::Reddit::User      ();
 
 has _client => (
     is  => 'lazy',
@@ -19,7 +20,18 @@ with(
     'WunderCharts::Plugin::Role::HasServiceURL',
     'WunderCharts::Plugin::Role::HasUserURL',
     'WunderCharts::Plugin::Role::RequiresOAuth2',
+    'WunderCharts::Plugin::Role::RequiresOAuthRefreshToken',
 );
+
+sub _build__client {
+    my $self = shift;
+    return WebService::Reddit->new(
+        access_token  => $self->_access_token,
+        app_key       => $self->_consumer_key,
+        app_secret    => $self->_consumer_secret,
+        refresh_token => $self->_refresh_token,
+    );
+}
 
 sub _build_service_url { 'https://www.reddit.com' }
 
@@ -41,7 +53,9 @@ sub detect_resource {
         return ( 'subreddit', $parts[1] );
     }
 
-    return ( 'user', $parts[0] );
+    if ( $parts[0] && $parts[0] eq 'u' ) {
+        return ( 'user', $parts[1] );
+    }
 
     die "$arg does not appear to be a valid Reddit resource.";
 }
@@ -54,12 +68,15 @@ sub get_resource {
     if ( $resource[0] eq 'user' && $resource[1] =~ m{[a-zA-Z]} ) {
         return $self->get_user_by_nick( $resource[1] );
     }
-    return $self->get_resource_by_id(@resource);
+    if ( $resource[0] eq 'subreddit' && $resource[1] =~ m{[a-zA-Z]} ) {
+        return $self->get_subreddit_by_nick( $resource[1] );
+    }
+    die 'Cannot detect resource for ' . $name;
 }
 
 sub get_user_by_nick {
     my $self = shift;
-    my $nick   = shift;
+    my $nick = shift;
 
     my $uri = sprintf '/user/%s/about', $nick;
 
@@ -70,7 +87,7 @@ sub get_user_by_nick {
 # use the id 'me' to get info about the user who is connecting
 sub get_subreddit_by_nick {
     my $self = shift;
-    my $nick   = shift;
+    my $nick = shift;
 
     my $uri = sprintf '/r/%s/about', $nick;
 
@@ -83,7 +100,7 @@ sub url_for_user {
     my $username = shift;
 
     my $url = $self->service_url->clone;
-    $url->path('/user/' . $username);
+    $url->path( '/user/' . $username );
     return $url;
 }
 
