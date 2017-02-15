@@ -50,4 +50,9 @@ sub _build_resource_url {
     return sprintf 'https://www.reddit.com/user/%s', $self->name;
 }
 
+sub login {
+    my $self = shift;
+    return $self->name;
+}
+
 1;
