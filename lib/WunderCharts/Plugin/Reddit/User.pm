@@ -55,4 +55,9 @@ sub login {
     return $self->name;
 }
 
+sub nick {
+    my $self = shift;
+    return $self->name;
+}
+
 1;

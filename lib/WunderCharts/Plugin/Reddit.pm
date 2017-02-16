@@ -14,7 +14,6 @@ has _client => (
 );
 
 with(
-    'WunderCharts::Plugin::Role::HasGetResourceByID',
     'WunderCharts::Plugin::Role::HasIDFilter',
     'WunderCharts::Plugin::Role::HasMechUserAgent',
     'WunderCharts::Plugin::Role::HasServiceURL',
@@ -73,6 +72,14 @@ sub get_resource {
         return $self->get_subreddit_by_nick( $resource[1] );
     }
     die 'Cannot detect resource for ' . $name;
+}
+
+sub get_resource_by_nick {
+    my $self          = shift;
+    my $resource_type = shift;
+    my $nick          = shift;
+
+    return $self->get_resource( $nick );
 }
 
 sub get_user_by_nick {

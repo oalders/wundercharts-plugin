@@ -56,4 +56,9 @@ sub _build_resource_url {
     return $url->as_string;
 }
 
+sub nick {
+    my $self = shift;
+    return $self->name;
+}
+
 1;
