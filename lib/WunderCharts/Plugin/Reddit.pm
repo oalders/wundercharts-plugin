@@ -30,6 +30,7 @@ sub _build__client {
         app_key       => $self->_consumer_key,
         app_secret    => $self->_consumer_secret,
         refresh_token => $self->_refresh_token,
+        ua            => $self->_user_agent,
     );
 }
 
