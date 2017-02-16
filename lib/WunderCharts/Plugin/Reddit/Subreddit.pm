@@ -22,11 +22,14 @@ has id => (
     default => sub { shift->_raw->{id} },
 );
 
+# The name key returns something like 't5_' . $self->id.  That's not helpful
+# for display purposes.
+
 has name => (
     is      => 'ro',
     isa     => NonEmptyStr,
     lazy    => 1,
-    default => sub { shift->_raw->{name} },
+    default => sub { shift->_raw->{url} },
 );
 
 has subscribers => (
