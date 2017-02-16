@@ -9,7 +9,7 @@ use URI ();
 
 with 'WunderCharts::Plugin::Role::HasRawData';
 
-has accounts_active => (
+has accounts_active_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
@@ -33,7 +33,7 @@ has name => (
     default => sub { shift->_raw->{url} },
 );
 
-has subscribers => (
+has subscribers_count => (
     is      => 'ro',
     isa     => PositiveOrZeroInt,
     lazy    => 1,
@@ -46,7 +46,7 @@ with(
 );
 
 sub _build_trackables {
-    [ 'accounts_active', 'subscribers' ];
+    [ 'accounts_active_count', 'subscribers_count' ];
 }
 
 sub _build_resource_url {
