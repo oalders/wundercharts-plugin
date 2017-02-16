@@ -5,6 +5,7 @@ use MooX::StrictConstructor;
 
 use Types::Common::Numeric qw( PositiveOrZeroInt );
 use Types::Common::String qw( NonEmptyStr );
+use URI ();
 
 with 'WunderCharts::Plugin::Role::HasRawData';
 
@@ -50,7 +51,9 @@ sub _build_trackables {
 
 sub _build_resource_url {
     my $self = shift;
-    return sprintf 'https://www.reddit.com/user/%s', $self->name;
+    my $url  = URI->new('https://www.reddit.com');
+    $url->path( $self->name );
+    return $url->as_string;
 }
 
 1;
