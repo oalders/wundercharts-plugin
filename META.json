@@ -65,7 +65,7 @@
             "URI::FromHash" : "0",
             "URI::QueryParam" : "0",
             "WWW::Mechanize" : "0",
-            "WWW::Spotify" : "0",
+            "WWW::Spotify" : "0.009",
             "WebService::HackerNews" : "0",
             "WebService::HealthGraph" : "0.000004",
             "WebService::Reddit" : "0.000003",
