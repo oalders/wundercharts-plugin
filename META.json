@@ -66,9 +66,11 @@
             "URI::QueryParam" : "0",
             "WWW::Mechanize" : "0",
             "WWW::Spotify" : "0.009",
+            "WebService::Fitbit" : "0",
             "WebService::HackerNews" : "0",
             "WebService::HealthGraph" : "0.000004",
             "WebService::Reddit" : "0.000003",
+            "WunderCharts::Plugin::Fitbit::User" : "0",
             "perl" : "v5.10.0",
             "strict" : "0",
             "warnings" : "0"

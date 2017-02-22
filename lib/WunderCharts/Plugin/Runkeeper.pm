@@ -78,4 +78,4 @@ Returns a list of resources for the given type.
 
 Valid resource types are C<weight> and C<fitness_activity>.
 
-=
+=cut

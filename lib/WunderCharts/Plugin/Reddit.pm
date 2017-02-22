@@ -79,7 +79,7 @@ sub get_resource_by_nick {
     my $resource_type = shift;
     my $nick          = shift;
 
-    return $self->get_resource( $nick );
+    return $self->get_resource($nick);
 }
 
 sub get_user_by_nick {
