@@ -33,11 +33,11 @@ my %resources = (
         [ 'repo', 'oalders', 'http-browserdetect' ],
     'https://github.com/oalders/http-browserdetect.git' =>
         [ 'repo', 'oalders', 'http-browserdetect' ],
-    '@oalders' => [ 'user', 'oalders' ],
+    'o-alders' => [ 'user', 'o-alders' ],
     'oalders'  => [ 'user', 'oalders' ],
+    '@oalders' => [ 'user', 'oalders' ],
     'oalders/http-browserdetect' =>
         [ 'repo', 'oalders', 'http-browserdetect' ],
-
 );
 
 foreach my $resource ( keys %resources ) {
