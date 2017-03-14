@@ -41,10 +41,12 @@ sub _build__client {
     return $nt;
 }
 
+## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
 sub _user_agent {
     my $self = shift;
     return $self->_client->ua;
 }
+## use critic
 
 sub detect_resource {
     my $self = shift;
@@ -54,7 +56,7 @@ sub detect_resource {
         return ( 'user', substr( $arg, 1 ) );
     }
 
-    return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
+    return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z_]};
 
     # https://twitter.com/wundercounter
     # https://twitter.com/wundercounter/status/570454045099307008

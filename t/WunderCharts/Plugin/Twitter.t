@@ -17,6 +17,7 @@ is(
 );
 
 my %resources = (
+    'cpan_new'                          => [ 'user', 'cpan_new' ],
     '@cpan_new'                         => [ 'user', 'cpan_new' ],
     'https://twitter.com/cpan_new'      => [ 'user', 'cpan_new' ],
     'https://twitter.com/wundercounter' => [ 'user', 'wundercounter' ],
