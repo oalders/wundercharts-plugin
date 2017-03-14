@@ -45,7 +45,7 @@ sub detect_resource {
         return ( 'user', substr( $arg, 1 ) );
     }
 
-    return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z]};
+    return ( 'user', $arg ) if $arg !~ m{[^0-9A-Za-z\.]};
 
     my $uri = URI->new($arg);
 
@@ -56,8 +56,6 @@ sub detect_resource {
     }
 
     return ( 'user', $parts[0] );
-
-    die "$arg does not appear to be a valid Instagram source.";
 }
 
 sub get_image_by_id {
