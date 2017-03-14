@@ -7,6 +7,7 @@ use Data::Printer;
 use DateTime ();
 use Types::Standard qw( InstanceOf );
 use WebService::Fitbit                 ();
+use WunderCharts::Plugin::Fitbit::Activity ();
 use WunderCharts::Plugin::Fitbit::User ();
 
 has _client => (
