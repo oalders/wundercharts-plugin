@@ -40,6 +40,7 @@ sub config_for_service {
         consumer_key        => 'bar',
         consumer_secret     => 'baz',
         live                => 0,
+        refresh_token       => 'seekrit',
     };
 }
 
