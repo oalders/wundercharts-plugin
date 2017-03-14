@@ -17,12 +17,14 @@ is(
 );
 
 my %resources = (
+    '@cpan_new'                         => [ 'user', 'cpan_new' ],
+    'https://twitter.com/cpan_new'      => [ 'user', 'cpan_new' ],
+    'https://twitter.com/wundercounter' => [ 'user', 'wundercounter' ],
     'https://twitter.com/wundercounter/status/570454045099307008' =>
         [ 'status', '570454045099307008' ],
-    'https://twitter.com/wundercounter' => [ 'user', 'wundercounter' ],
 );
 
-foreach my $resource ( keys %resources ) {
+foreach my $resource ( sort keys %resources ) {
     is_deeply(
         [ $plugin->detect_resource($resource) ],
         $resources{$resource}, 'detected resource for ' . $resource
