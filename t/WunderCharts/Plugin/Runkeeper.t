@@ -9,6 +9,6 @@ use Test::WunderCharts::Plugin qw( plugin_for_service);
 
 my $plugin = plugin_for_service('Runkeeper');
 
-ok( $plugin, 'got plugin');
+ok( $plugin, 'got plugin' );
 
 done_testing();

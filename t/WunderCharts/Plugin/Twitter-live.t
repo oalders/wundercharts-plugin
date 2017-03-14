@@ -25,25 +25,25 @@ SKIP: {
     {
         my $user = $plugin->get_user_by_nick('cpan_new');
         ok( $user, "got $username user" );
-        trackables_ok( $user );
+        trackables_ok($user);
     }
 
     {
         my $user = $plugin->get_user_by_nick($username);
         ok( $user, "got $username user" );
-        trackables_ok( $user );
+        trackables_ok($user);
     }
 
     {
         my $user = $plugin->get_user_by_id(29385636);
         ok( $user, "got $username user by id" );
-        trackables_ok( $user );
+        trackables_ok($user);
     }
 
     {
         my $status = $plugin->get_status_by_id(570454045099307008);
         ok( $status, "got $username status" );
-        trackables_ok( $status );
+        trackables_ok($status);
     }
 
     {

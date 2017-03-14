@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 {
     about =>
         'Help change the world. New Single #WhatDoYouMean http://smarturl.it/iWDYM',

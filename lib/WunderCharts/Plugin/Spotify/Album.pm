@@ -34,7 +34,7 @@ with(
 );
 
 sub _build_trackables {
-    return [ 'popularity' ];
+    return ['popularity'];
 }
 
 1;

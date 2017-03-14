@@ -9,7 +9,7 @@ has belongs_to => (
     isa       => Str,
     predicate => 'has_belongs_to',
     lazy      => 1,
-    builder   => '_build_belongs_to'
+    builder   => '_build_belongs_to',
 );
 
 has has_many => (

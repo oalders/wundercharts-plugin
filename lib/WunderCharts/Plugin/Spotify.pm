@@ -7,7 +7,7 @@ use Cpanel::JSON::XS qw( decode_json );
 use Data::Printer;
 use Types::Standard qw( InstanceOf );
 use URI                                   ();
-use WunderCharts::Plugin::Spotify::Album ();
+use WunderCharts::Plugin::Spotify::Album  ();
 use WunderCharts::Plugin::Spotify::Artist ();
 use WunderCharts::Plugin::Spotify::Track  ();
 use WunderCharts::Plugin::Spotify::User   ();

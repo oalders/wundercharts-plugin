@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 {
     display_name  => undef,
     external_urls => {

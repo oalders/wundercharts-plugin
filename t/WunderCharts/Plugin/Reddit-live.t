@@ -23,8 +23,8 @@ SKIP: {
     my %urls = (
         'https://www.reddit.com/r/running' => [ 'subreddit', 'running' ],
         'https://www.reddit.com/u/oalders' => [ 'user',      'oalders' ],
-        '/r/running' => [ 'subreddit', 'running' ],
-        '/u/oalders' => [ 'user',      'oalders' ],
+        '/r/running'                       => [ 'subreddit', 'running' ],
+        '/u/oalders'                       => [ 'user',      'oalders' ],
         'https://www.reddit.com/r/running/about' =>
             [ 'subreddit', 'running' ],
     );

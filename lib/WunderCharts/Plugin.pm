@@ -1,6 +1,7 @@
+package WunderCharts::Plugin;
+
 use strict;
 use warnings;
-package WunderCharts::Plugin;
 
 1;
 

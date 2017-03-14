@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 {
     avatar_url    => 'https://avatars.githubusercontent.com/u/96205?v=3',
     bio           => undef,
@@ -12,7 +15,7 @@
     following_url =>
         'https://api.github.com/users/oalders/following{/other_user}',
     gists_url   => 'https://api.github.com/users/oalders/gists{/gist_id}',
-    gravatar_id => '',
+    gravatar_id => q{},
     hireable    => 1,
     html_url    => 'https://github.com/oalders',
     id          => 96205,

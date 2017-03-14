@@ -75,10 +75,10 @@ my $plugin = plugin_for_service('HackerNews');
 }
 
 {
-    my $poll = $plugin->get_resource(
-        'https://news.ycombinator.com/vote?for=7059571&dir=up&auth=6f77c6f1a92f9fef5fce72818ac34ae82bdce081&goto=item%3Fid%3D7059569
-'
-    );
+    my $poll
+        = $plugin->get_resource(
+        'https://news.ycombinator.com/vote?for=7059571&dir=up&auth=6f77c6f1a92f9fef5fce72818ac34ae82bdce081&goto=item%3Fid%3D7059569'
+        );
     ok( $poll, 'pollopt via vote URL' );
 }
 

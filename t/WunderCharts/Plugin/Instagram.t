@@ -19,10 +19,11 @@ foreach my $url (@urls) {
 
 my %things = (
     'https://instagram.com/oalders' => [ 'user', 'oalders' ],
-    'https://www.instagram.com/p/dmQVviwWoQ/?taken-by=oalders' => [ 'media', 'dmQVviwWoQ' ],
-    '@oalders' => ['user', 'oalders'],
-    'o.alders' => ['user', 'o.alders'],
-    'oalders' => ['user', 'oalders'],
+    'https://www.instagram.com/p/dmQVviwWoQ/?taken-by=oalders' =>
+        [ 'media', 'dmQVviwWoQ' ],
+    '@oalders' => [ 'user', 'oalders' ],
+    'o.alders' => [ 'user', 'o.alders' ],
+    'oalders'  => [ 'user', 'oalders' ],
 );
 
 foreach my $thing ( keys %things ) {

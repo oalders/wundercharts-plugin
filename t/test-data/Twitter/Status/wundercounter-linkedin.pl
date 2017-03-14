@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 {
     favorite_count => 1910,
     id             => 570454045099307008,
