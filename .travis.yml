@@ -3,8 +3,12 @@ language: perl
 perl:
   - "5.20"
   - "5.18"
-script:
-  - "prove -lrv t"
+matrix:
+  include:
+    - perl: 5.18
+      env: COVERAGE=1   # enables coverage+coveralls reporting
+before_install:
+  - eval $(curl https://travis-perl.github.io/init) --auto
 notifications:
   email:
     recipients:
