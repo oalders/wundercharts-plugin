@@ -19,6 +19,11 @@ is(
 );
 
 is(
+    $plugin->maybe_extract_id('https://www.facebook.com/katyperry/'),
+    'katyperry', 'extracts id from url with trailing slash'
+);
+
+is(
     $plugin->maybe_extract_id(
         'https://www.facebook.com/Morph-Productions-8144912092/timeline/'
     ),
